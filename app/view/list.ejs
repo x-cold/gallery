@@ -1,0 +1,15 @@
+<% include header.ejs %>
+  <div class="layout">
+  	<% if (galleries.length > 0){ %>
+      <div class="albums">
+        <% galleries.map(item => item.meta).forEach(function (album) { %>
+          <figure class="thumb" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+            <a href="./detail/<%= album.id %>" class="img-wrap">
+              <img class="js-image" alt="<%= album.name %>" data-src="<%= album.pic %>?tn=1" src="/public/img/preloader.gif" itemprop="thumbnail" data-not-lz="true" />
+            </a>
+            <figcaption itemprop="caption description"><%= album.name %></figcaption>
+          </figure>
+        <% }) %>
+    <% } %>
+  </div>
+<% include footer.ejs %>
