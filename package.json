@@ -1,0 +1,55 @@
+{
+  "name": "gallery",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "dependencies": {
+    "egg": "^1.7.0",
+    "egg-scripts": "^1.1.1",
+    "egg-view-ejs": "^1.1.0",
+    "lowdb": "^1.0.0",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "autod": "^2.9.0",
+    "autod-egg": "^1.0.0",
+    "css-loader": "^0.25.0",
+    "egg-bin": "^4.2.0",
+    "egg-ci": "^1.8.0",
+    "egg-mock": "^3.10.0",
+    "eslint": "^4.5.0",
+    "eslint-config-egg": "^5.1.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.11.2",
+    "in-view": "^0.6.1",
+    "style-loader": "^0.13.2",
+    "url-loader": "^0.5.7",
+    "watch": "^1.0.1",
+    "webpack": "^1.13.2",
+    "webstorm-disable-index": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "start": "egg-scripts start --daemon",
+    "stop": "egg-scripts stop",
+    "dev": "egg-bin dev",
+    "debug": "egg-bin debug",
+    "test": "npm run lint -- --fix && npm run test-local",
+    "test-local": "egg-bin test",
+    "cov": "egg-bin cov",
+    "lint": "eslint .",
+    "ci": "npm run lint && npm run cov",
+    "autod": "autod"
+  },
+  "ci": {
+    "version": "6, 8"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "x-cold",
+  "license": "MIT"
+}
