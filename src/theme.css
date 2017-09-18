@@ -11,7 +11,6 @@ body {
 }
 a {
   outline: 0;
-  star: expression(this.onFocus=this.blur());
 }
 
 .breadcrumb {
@@ -329,7 +328,6 @@ section.info table td:first-child {
   font-size: 12px;
   font-family: Menlo,Monaco,Andale Mono,lucida console,Courier New,monospace;
   text-shadow: 0 1px #fff;
-  position: absolute;
   opacity: .6;
   width: 100%;
   text-align: center;
@@ -337,7 +335,7 @@ section.info table td:first-child {
   box-sizing: border-box;
   bottom: 0;
   left: 0;
-  padding-top: 60px;
+  padding-top: 40px;
 }
 .footer a {
   background: transparent;
