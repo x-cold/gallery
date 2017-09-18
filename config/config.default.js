@@ -1,5 +1,7 @@
 'use strict';
 
+const ossConfig = require('../config').oss;
+
 module.exports = appInfo => {
   const config = {};
 
@@ -12,6 +14,9 @@ module.exports = appInfo => {
   config.static = {
     maxAge: 3600
   };
+
+  // normal oss bucket
+  config.oss = ossConfig;
 
   config.view = {
     mapping: {
