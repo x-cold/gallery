@@ -1,5 +1,5 @@
 'use strict';
-const galleriesService = require('../services/gallery');
+const galleriesService = require('../service/gallery');
 
 module.exports = app => {
   class HomeController extends app.Controller {
