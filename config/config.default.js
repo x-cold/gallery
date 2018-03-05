@@ -1,6 +1,8 @@
 'use strict';
 
-exports.keys = appInfo.name + '_1505540765646_9754';
+const appName = require('../package').name;
+
+exports.keys = appName + '_1505540765646_9754';
 
 exports.static = {
   maxAge: 3600
@@ -21,4 +23,9 @@ exports.oss = {
     endpoint: 'oss-cn-hongkong.aliyun.com',
     timeout: '60s',
   },
+};
+
+exports.aliyunPhoto = {
+  endpoint: 'https://cloudphoto.cn-shanghai.aliyuncs.com',
+  apiVersion: '2017-07-11',
 };
