@@ -6,9 +6,9 @@
   "dependencies": {
     "egg": "^2.4.0",
     "egg-bin": "^4.3.7",
-    "egg-oss": "^1.0.2",
     "egg-scripts": "^2.5.1",
     "egg-view-ejs": "^2.0.0",
+    "lerna": "^2.9.0",
     "lowdb": "^1.0.0",
     "uuid": "^3.1.0"
   },
@@ -34,16 +34,18 @@
     "node": ">=8.9.0"
   },
   "scripts": {
-    "start": "egg-scripts start --daemon",
+    "start": "egg-scripts start --wdaemon",
     "stop": "egg-scripts stop",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",
     "cov": "egg-bin cov",
-    "lint": "eslint .",
+    "lint": "eslint app/ config/",
     "ci": "npm run lint && npm run cov",
-    "autod": "autod"
+    "autod": "autod",
+    "install": "lerna bootstrap",
+    "clean": "lerna clean"
   },
   "ci": {
     "version": "6, 8"
