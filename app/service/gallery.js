@@ -8,38 +8,38 @@ const uuid = function() {
 };
 
 class GalleryService extends Service {
-  getGalleries () {
+  getGalleries() {
     return model.get('galleries').value();
   }
 
-  pushGallery (meta) {
-    var id = uuid();
+  pushGallery(meta) {
+    const id = uuid();
     return model.get('galleries')
       .push({
         meta: Object.assign(meta, {
-          id: id,
-          create_at: Date.now()
+          id,
+          create_at: Date.now(),
         }),
-        photos: []
+        photos: [],
       })
       .write();
   }
 
-  getGalleryById (galleryId) {
+  getGalleryById(galleryId) {
     const album = model.get('galleries')
       .find({
         meta: {
-          id: galleryId
-        }
+          id: galleryId,
+        },
       })
       .value();
     return album;
   }
 
-  pushPhotos (galleryId, photo) {
+  pushPhotos(galleryId, photo) {
     return model.get('galleries')
       .find({
-        id: galleryId
+        id: galleryId,
       })
       .get('photos')
       .push(photo);

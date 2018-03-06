@@ -12,7 +12,7 @@ class ApiController extends Controller {
         StoreName: ctx.query.name,
       });
       ctx.body = result;
-    } catch(error) {
+    } catch (error) {
       throw error;
     }
   }

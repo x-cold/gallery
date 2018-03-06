@@ -5,15 +5,9 @@ exports.ejs = {
   package: 'egg-view-ejs',
 };
 
-// config/plugin.js
-exports.oss = {
-  enable: true,
-  package: 'egg-oss',
-};
-
 exports.aliyunPhoto = {
   enable: true,
-  package: '../plugin/egg-aliyun-photo',  
+  package: '../plugin/egg-aliyun-photo',
 };
 
 exports.static = true;

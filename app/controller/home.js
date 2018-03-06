@@ -7,9 +7,9 @@ class HomeController extends Controller {
     const { ctx } = this;
     const galleries = ctx.service.gallery.getGalleries();
     await ctx.render('list.ejs', {
-      galleries: galleries,
+      galleries,
       title: '相册列表',
-      avatar: 'https://avatars3.githubusercontent.com/u/6903313'
+      avatar: 'https://avatars3.githubusercontent.com/u/6903313',
     });
   }
 
@@ -19,8 +19,8 @@ class HomeController extends Controller {
     const album = ctx.service.gallery.getGalleryById(id);
     if (!album) {
       ctx.body = {
-        code: 404
-      }
+        code: 404,
+      };
       return;
     }
     await ctx.render('detail.ejs', {
@@ -29,7 +29,7 @@ class HomeController extends Controller {
       title: album.meta.name,
       name: album.meta.name,
       description: '',
-      avatar: 'https://avatars3.githubusercontent.com/u/6903313'
+      avatar: 'https://avatars3.githubusercontent.com/u/6903313',
     });
   }
 }
