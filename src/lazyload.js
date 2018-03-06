@@ -1,50 +1,50 @@
 module.exports = lazyload;
- 
-var inView = require('in-view');
-var lazyAttrs = ['data-src'];
 
-var isInit = false;
+const inView = require('in-view');
+const lazyAttrs = [ 'data-src' ];
+
+let isInit = false;
 
 // Provide libs using getAttribute early to get the good src
 // and not the fake data-src
 // replaceGetAttribute('Image');
 // replaceGetAttribute('IFrame');
- 
+
 function registerLazyAttr(attr) {
   if (indexOf.call(lazyAttrs, attr) === -1) {
     lazyAttrs.push(attr);
   }
 }
- 
+
 function lazyload(opts) {
   opts = merge({
     wrap: {},
     src: 'data-src',
     container: false,
   }, opts || {});
-  
-  var elt = opts.$target;
-  var wrapW = opts.wrap.width;
-  var wrapH = opts.wrap.height;
+
+  const elt = opts.$target;
+  const wrapW = opts.wrap.width;
+  const wrapH = opts.wrap.height;
 
   if (typeof opts.src === 'string') {
     registerLazyAttr(opts.src);
   }
- 
-  var elts = [];
- 
+
+  const elts = [];
+
   function show(elt) {
     if (elt.getAttribute('data-lzled')) {
       return;
     }
-    var src = findRealSrc(elt);
- 
+    const src = findRealSrc(elt);
+
     if (src) {
-      var $preloadImg = new Image();
+      const $preloadImg = new Image();
       $preloadImg.src = src;
       $preloadImg.onload = function() {
-        var preW = $preloadImg.width;
-        var preH = $preloadImg.height
+        const preW = $preloadImg.width;
+        const preH = $preloadImg.height;
         if (wrapW / wrapH < preW / preH) {
           elt.style.height = wrapH;
           var result = (wrapW - wrapH * preW / preH) / 2;
@@ -61,29 +61,29 @@ function lazyload(opts) {
         elt.src = src;
         elt.removeAttribute('data-not-lz');
         elt.setAttribute('data-lzled', true);
-      }
+      };
     }
     elts[indexOf.call(elts, elt)] = null;
   }
- 
+
   function findRealSrc(elt) {
     if (typeof opts.src === 'function') {
       return opts.src(elt);
     }
- 
+
     return elt.getAttribute(opts.src);
   }
- 
+
   function register(elt) {
     // unsubscribe onload
     // needed by IE < 9, otherwise we get another onload when changing the src
     elt.onload = null;
     elt.removeAttribute('onload');
- 
+
     // https://github.com/vvo/lazyload/issues/62
     elt.onerror = null;
     elt.removeAttribute('onerror');
- 
+
     if (indexOf.call(elts, elt) === -1 && !isInit) {
       inView(opts.selector).on('enter', show);
       isInit = true;
@@ -95,43 +95,43 @@ function lazyload(opts) {
   }
   register(elt);
 }
- 
+
 function replaceGetAttribute(elementName) {
-  var fullname = 'HTML' + elementName + 'Element';
+  const fullname = 'HTML' + elementName + 'Element';
   if (fullname in global === false) {
     return;
   }
- 
-  var original = global[fullname].prototype.getAttribute;
+
+  const original = global[fullname].prototype.getAttribute;
   global[fullname].prototype.getAttribute = function(name) {
     if (name === 'src') {
-      var realSrc;
-      for (var i = 0, max = lazyAttrs.length; i < max; i++) {
+      let realSrc;
+      for (let i = 0, max = lazyAttrs.length; i < max; i++) {
         realSrc = original.call(this, lazyAttrs[i]);
         if (realSrc) {
           break;
         }
       }
- 
+
       return realSrc || original.call(this, name);
     }
- 
+
     // our own lazyloader will go through theses lines
     // because we use getAttribute(opts.src)
     return original.call(this, name);
   };
 }
- 
+
 function merge(defaults, opts) {
-  for (var name in defaults) {
+  for (const name in defaults) {
     if (opts[name] === undefined) {
       opts[name] = defaults[name];
     }
   }
- 
+
   return opts;
 }
- 
+
 // http://webreflection.blogspot.fr/2011/06/partial-polyfills.html
 function indexOf(value) {
   for (var i = this.length; i-- && this[i] !== value;) {}
