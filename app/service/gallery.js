@@ -1,12 +1,16 @@
+'use strict';
+
+const { Service } = require('egg');
+
 const model = require('../model/gallery');
 const uuid = function() {
   return Date.now().toString(36);
 };
 
-module.exports = {
+class GalleryService extends Service {
   getGalleries () {
     return model.get('galleries').value();
-  },
+  }
 
   pushGallery (meta) {
     var id = uuid();
@@ -19,7 +23,7 @@ module.exports = {
         photos: []
       })
       .write();
-  },
+  }
 
   getGalleryById (galleryId) {
     const album = model.get('galleries')
@@ -30,7 +34,7 @@ module.exports = {
       })
       .value();
     return album;
-  },
+  }
 
   pushPhotos (galleryId, photo) {
     return model.get('galleries')
@@ -40,4 +44,6 @@ module.exports = {
       .get('photos')
       .push(photo);
   }
-};
+}
+
+module.exports = GalleryService;
