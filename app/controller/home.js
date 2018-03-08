@@ -32,6 +32,14 @@ class HomeController extends Controller {
       avatar: 'https://avatars3.githubusercontent.com/u/6903313',
     });
   }
+
+  async upload() {
+    const { ctx } = this
+    await ctx.render('upload.ejs', {
+      title: '上传照片',
+      avatar: 'https://avatars3.githubusercontent.com/u/6903313'
+    })
+  }
 }
 
 module.exports = HomeController;

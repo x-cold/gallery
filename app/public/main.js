@@ -1,120 +1,150 @@
-/** ****/ (function(modules) { // webpackBootstrap
-/** ****/ 	// The module cache
-/** ****/ 	const installedModules = {};
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
 
-  /** ****/ 	// The require function
-  /** ****/ 	function __webpack_require__(moduleId) {
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
 
-    /** ****/ 		// Check if module is in cache
-    /** ****/ 		if (installedModules[moduleId])
-    /** ****/ 			{ return installedModules[moduleId].exports; }
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
 
-    /** ****/ 		// Create a new module (and put it into the cache)
-    /** ****/ 		const module = installedModules[moduleId] = {
-      /** ****/ 			exports: {},
-      /** ****/ 			id: moduleId,
-      /** ****/ 			loaded: false,
-      /** ****/ 		};
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
 
-    /** ****/ 		// Execute the module function
-    /** ****/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 
-    /** ****/ 		// Flag the module as loaded
-    /** ****/ 		module.loaded = true;
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
 
-    /** ****/ 		// Return the exports of the module
-    /** ****/ 		return module.exports;
-    /** ****/ 	}
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
 
 
-  /** ****/ 	// expose the modules object (__webpack_modules__)
-  /** ****/ 	__webpack_require__.m = modules;
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
 
-  /** ****/ 	// expose the module cache
-  /** ****/ 	__webpack_require__.c = installedModules;
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
 
-  /** ****/ 	// __webpack_public_path__
-  /** ****/ 	__webpack_require__.p = './';
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "./";
 
-  /** ****/ 	// Load entry module and return exports
-  /** ****/ 	return __webpack_require__(0);
-/** ****/ })([
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
 /* 0 */
-/** */ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-    // css
-    __webpack_require__(1);
-    __webpack_require__(9);
-    __webpack_require__(11);
+	// css
+	__webpack_require__(1);
+	__webpack_require__(9);
+	__webpack_require__(11);
 
-    // js
-    const swipe = __webpack_require__(16);
-    const lazyload = __webpack_require__(19);
+	// js
+	const swipe = __webpack_require__(16);
+	const lazyload = __webpack_require__(19);
 
-    // todo: fix window
+	// todo: fix window
 
-    const lazy = {
-      init() {
-        const $img = document.getElementsByClassName('js-image');
-        const $wrapArr = document.getElementsByClassName('img-wrap');
-        const wrap = {
-          width: 300,
-          height: 200,
-        };
-        if ($wrapArr && $wrapArr[0]) {
-          const rectObj = $wrapArr[0].getBoundingClientRect();
-          wrap.width = rectObj.width;
-          wrap.height = rectObj.height;
-        }
+	const lazy = {
+	  init() {
+	    const $img = document.getElementsByClassName('js-image');
+	    const $wrapArr = document.getElementsByClassName('img-wrap');
+	    const wrap = {
+	      width: 300,
+	      height: 200,
+	    };
+	    if ($wrapArr && $wrapArr[0]) {
+	      const rectObj = $wrapArr[0].getBoundingClientRect();
+	      wrap.width = rectObj.width;
+	      wrap.height = rectObj.height;
+	    }
 
-        for (let i = 0, len = $img.length; i < len; i++) {
-          lazyload({
-            container: document.getElementsByTagName('body')[0],
-            wrap,
-            $target: $img[i],
-            selector: '.js-image',
-          });
-        }
-      },
-    };
+	    for (let i = 0, len = $img.length; i < len; i++) {
+	      lazyload({
+	        container: document.getElementsByTagName('body')[0],
+	        wrap,
+	        $target: $img[i],
+	        selector: '.js-image',
+	      });
+	    }
+	  },
+	};
 
-    window.onload = function() {
-      swipe.init();
-      lazy.init();
-    };
+	var inputFile = document.getElementById("file")
+	inputFile ?
+	  inputFile.addEventListener('change', function (e) {
+	    var file = e.target.files[0]
 
+	    if (!file.type.match('image.*')) {
+	      return false
+	    }
 
-    /** */ },
-  /* 1 */
-  /** */ function(module, exports) {
+	    var reader = new FileReader()
+	    reader.readAsDataURL(file)
 
-    // removed by extract-text-webpack-plugin
+	    reader.onload = function (arg) {
+	      var img = document.createElement('img')
+	      img.src = arg.target.result
+	      img.alt = 'preview'
+	      var parent = document.querySelector('.preview-box')
+	      parent.append(img)
+	      parent.style.display = 'block'
+	    }
+	  }, false) :
+	  null
+	window.onload = function () {
+	  swipe.init();
+	  lazy.init();
+	};
 
-    /** */ },,,,, /* 2 */, /* 3 */, /* 4 */, /* 5 */
-  /* 6 */
-  /* 7 */
-  /* 8 */
-  /* 9 */
-  /** */ function(module, exports) {
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
 
-    // removed by extract-text-webpack-plugin
+	// removed by extract-text-webpack-plugin
 
-    /** */ },, /* 10 */
-  /* 11 */
-  /** */ function(module, exports) {
+/***/ }),
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */
+/***/ (function(module, exports) {
 
-    // removed by extract-text-webpack-plugin
+	// removed by extract-text-webpack-plugin
 
-    /** */ },,, /* 12 */, /* 13 */,
-  /* 14 */
-  /* 15 */
-  /* 16 */
-  /** */ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 10 */,
+/* 11 */
+/***/ (function(module, exports) {
 
-    const PhotoSwipe = __webpack_require__(17);
-    const PhotoSwipeUI_Default = __webpack_require__(18);
+	// removed by extract-text-webpack-plugin
 
-    const initPhotoSwipeFromDOM = function(gallerySelector) {
+/***/ }),
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	const PhotoSwipe = __webpack_require__(17);
+	const PhotoSwipeUI_Default = __webpack_require__(18);
+
+	const initPhotoSwipeFromDOM = function(gallerySelector) {
 
 	  // parse slide data (url, title, size ...) from DOM elements
 	  // (children of gallerySelector)
@@ -317,9 +347,9 @@
 	  if (hashData.pid && hashData.gid) {
 	    openPhotoSwipe(hashData.pid, galleryElements[hashData.gid - 1], true, true);
 	  }
-    };
+	};
 
-    const initSecretAlbum = function(albumSlt) {
+	const initSecretAlbum = function(albumSlt) {
 	  const albumElements = document.getElementsByClassName(albumSlt);
 	  const $dialog = document.getElementsByClassName('js-dialog')[0];
 	  const $overlay = document.getElementsByClassName('js-overlay')[0];
@@ -366,414 +396,413 @@
 	      }
 	    }
 	  };
-    };
-    function init() {
+	};
+	function init() {
 	  initPhotoSwipeFromDOM('.photos');
 	  // 是否相册，但这个判断方式不好
 	  // if (document.getElementsByClassName('albums').length) {
 	  //   initSecretAlbum('js-secret-album');
 	  // }
-    }
+	}
 
-    module.exports = {
+	module.exports = {
 	  init,
-    };
+	};
 
 
-    /** */ },
-  /* 17 */
-  /** */ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
 
-    let __WEBPACK_AMD_DEFINE_FACTORY__,
-      __WEBPACK_AMD_DEFINE_RESULT__;/* ! PhotoSwipe - v4.1.1 - 2015-12-24
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/* ! PhotoSwipe - v4.1.1 - 2015-12-24
 	* http://photoswipe.com
 	* Copyright (c) 2015 Dmitry Semenov; */
-    !function(a, b) { true ? !(__WEBPACK_AMD_DEFINE_FACTORY__ = (b), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : typeof exports === 'object' ? module.exports = b() : a.PhotoSwipe = b(); }(this, function() {
-      'use strict'; const a = function(a, b, c, d) {
-        var e = { features: null, bind(a, b, c, d) { const e = (d ? 'remove' : 'add') + 'EventListener'; b = b.split(' '); for (let f = 0; f < b.length; f++)b[f] && a[e](b[f], c, !1); }, isArray(a) { return a instanceof Array; }, createEl(a, b) { const c = document.createElement(b || 'div'); return a && (c.className = a), c; }, getScrollY() { const a = window.pageYOffset; return void 0 !== a ? a : document.documentElement.scrollTop; }, unbind(a, b, c) { e.bind(a, b, c, !0); }, removeClass(a, b) { const c = new RegExp('(\\s|^)' + b + '(\\s|$)'); a.className = a.className.replace(c, ' ').replace(/^\s\s*/, '').replace(/\s\s*$/, ''); }, addClass(a, b) { e.hasClass(a, b) || (a.className += (a.className ? ' ' : '') + b); }, hasClass(a, b) { return a.className && new RegExp('(^|\\s)' + b + '(\\s|$)').test(a.className); }, getChildByClass(a, b) { for (let c = a.firstChild; c;) { if (e.hasClass(c, b)) return c; c = c.nextSibling; } }, arraySearch(a, b, c) { for (let d = a.length; d--;) if (a[d][c] === b) return d; return -1; }, extend(a, b, c) { for (const d in b) if (b.hasOwnProperty(d)) { if (c && a.hasOwnProperty(d)) continue; a[d] = b[d]; } }, easing: { sine: { out(a) { return Math.sin(a * (Math.PI / 2)); }, inOut(a) { return -(Math.cos(Math.PI * a) - 1) / 2; } }, cubic: { out(a) { return --a * a * a + 1; } } }, detectFeatures() {
-          if (e.features) return e.features; let a = e.createEl(),
-            b = a.style,
-            c = '',
-            d = {}; if (d.oldIE = document.all && !document.addEventListener, d.touch = 'ontouchstart' in window, window.requestAnimationFrame && (d.raf = window.requestAnimationFrame, d.caf = window.cancelAnimationFrame), d.pointerEvent = navigator.pointerEnabled || navigator.msPointerEnabled, !d.pointerEvent) {
-            const f = navigator.userAgent; if (/iP(hone|od)/.test(navigator.platform)) { let g = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/); g && g.length > 0 && (g = parseInt(g[1], 10), g >= 1 && g < 8 && (d.isOldIOSPhone = !0)); } let h = f.match(/Android\s([0-9\.]*)/),
-              i = h ? h[1] : 0; i = parseFloat(i), i >= 1 && (i < 4.4 && (d.isOldAndroid = !0), d.androidVersion = i), d.isMobileOpera = /opera mini|opera mobi/i.test(f);
-          } for (var j, k, l = [ 'transform', 'perspective', 'animationName' ], m = [ '', 'webkit', 'Moz', 'ms', 'O' ], n = 0; n < 4; n++) { c = m[n]; for (let o = 0; o < 3; o++)j = l[o], k = c + (c ? j.charAt(0).toUpperCase() + j.slice(1) : j), !d[j] && k in b && (d[j] = k); c && !d.raf && (c = c.toLowerCase(), d.raf = window[c + 'RequestAnimationFrame'], d.raf && (d.caf = window[c + 'CancelAnimationFrame'] || window[c + 'CancelRequestAnimationFrame'])); } if (!d.raf) {
-            let p = 0; d.raf = function(a) {
-              let b = (new Date()).getTime(),
-                c = Math.max(0, 16 - (b - p)),
-                d = window.setTimeout(function() { a(b + c); }, c); return p = b + c, d;
-            }, d.caf = function(a) { clearTimeout(a); };
-          } return d.svg = !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect, e.features = d, d;
-        } }; e.detectFeatures(), e.features.oldIE && (e.bind = function(a, b, c, d) { b = b.split(' '); for (var e, f = (d ? 'detach' : 'attach') + 'Event', g = function() { c.handleEvent.call(c); }, h = 0; h < b.length; h++) if (e = b[h]) if (typeof c === 'object' && c.handleEvent) { if (d) { if (!c['oldIE' + e]) return !1; } else c['oldIE' + e] = g; a[f]('on' + e, c['oldIE' + e]); } else a[f]('on' + e, c); }); let f = this,
-          g = 25,
-          h = 3,
-          i = { allowPanToNext: !0, spacing: 0.12, bgOpacity: 1, mouseUsed: !1, loop: !0, pinchToClose: !0, closeOnScroll: !0, closeOnVerticalDrag: !0, verticalDragRange: 0.75, hideAnimationDuration: 333, showAnimationDuration: 333, showHideOpacity: !1, focus: !0, escKey: !0, arrowKeys: !0, mainScrollEndFriction: 0.35, panEndFriction: 0.35, isClickableElement(a) { return a.tagName === 'A'; }, getDoubleTapZoom(a, b) { return a ? 1 : b.initialZoomLevel < 0.7 ? 1 : 1.33; }, maxSpreadZoom: 1.33, modal: !0, scaleMode: 'fit' }; e.extend(i, d); var j,
-          k,
-          l,
-          m,
-          n,
-          o,
-          p,
-          q,
-          r,
-          s,
-          t,
-          u,
-          v,
-          w,
-          x,
-          y,
-          z,
-          A,
-          B,
-          C,
-          D,
-          E,
-          F,
-          G,
-          H,
-          I,
-          J,
-          K,
-          L,
-          M,
-          N,
-          O,
-          P,
-          Q,
-          R,
-          S,
-          T,
-          U,
-          V,
-          W,
-          X,
-          Y,
-          Z,
-          $,
-          _,
-          aa,
-          ba,
-          ca,
-          da,
-          ea,
-          fa,
-          ga,
-          ha,
-          ia,
-          ja,
-          ka,
-          la = function() { return { x: 0, y: 0 }; },
-          ma = la(),
-          na = la(),
-          oa = la(),
-          pa = {},
-          qa = 0,
-          ra = {},
-          sa = la(),
-          ta = 0,
-          ua = !0,
-          va = [],
-          wa = {},
-          xa = !1,
-          ya = function(a, b) { e.extend(f, b.publicMethods), va.push(a); },
-          za = function(a) { const b = _b(); return a > b - 1 ? a - b : a < 0 ? b + a : a; },
-          Aa = {},
-          Ba = function(a, b) { return Aa[a] || (Aa[a] = []), Aa[a].push(b); },
-          Ca = function(a) { const b = Aa[a]; if (b) { const c = Array.prototype.slice.call(arguments); c.shift(); for (let d = 0; d < b.length; d++)b[d].apply(f, c); } },
-          Da = function() { return (new Date()).getTime(); },
-          Ea = function(a) { ia = a, f.bg.style.opacity = a * i.bgOpacity; },
-          Fa = function(a, b, c, d, e) { (!xa || e && e !== f.currItem) && (d /= e ? e.fitRatio : f.currItem.fitRatio), a[E] = u + b + 'px, ' + c + 'px' + v + ' scale(' + d + ')'; },
-          Ga = function(a) { da && (a && (s > f.currItem.fitRatio ? xa || (lc(f.currItem, !1, !0), xa = !0) : xa && (lc(f.currItem), xa = !1)), Fa(da, oa.x, oa.y, s)); },
-          Ha = function(a) { a.container && Fa(a.container.style, a.initialPosition.x, a.initialPosition.y, a.initialZoomLevel, a); },
-          Ia = function(a, b) { b[E] = u + a + 'px, 0px' + v; },
-          Ja = function(a, b) {
-            if (!i.loop && b) {
-              let c = m + (sa.x * qa - a) / sa.x,
-                d = Math.round(a - sb.x); (c < 0 && d > 0 || c >= _b() - 1 && d < 0) && (a = sb.x + d * i.mainScrollEndFriction);
-            }sb.x = a, Ia(a, n);
-          },
-          Ka = function(a, b) { const c = tb[a] - ra[a]; return na[a] + ma[a] + c - c * (b / t); },
-          La = function(a, b) { a.x = b.x, a.y = b.y, b.id && (a.id = b.id); },
-          Ma = function(a) { a.x = Math.round(a.x), a.y = Math.round(a.y); },
-          Na = null,
-          Oa = function() { Na && (e.unbind(document, 'mousemove', Oa), e.addClass(a, 'pswp--has_mouse'), i.mouseUsed = !0, Ca('mouseUsed')), Na = setTimeout(function() { Na = null; }, 100); },
-          Pa = function() { e.bind(document, 'keydown', f), N.transform && e.bind(f.scrollWrap, 'click', f), i.mouseUsed || e.bind(document, 'mousemove', Oa), e.bind(window, 'resize scroll', f), Ca('bindEvents'); },
-          Qa = function() { e.unbind(window, 'resize', f), e.unbind(window, 'scroll', r.scroll), e.unbind(document, 'keydown', f), e.unbind(document, 'mousemove', Oa), N.transform && e.unbind(f.scrollWrap, 'click', f), U && e.unbind(window, p, f), Ca('unbindEvents'); },
-          Ra = function(a, b) { const c = hc(f.currItem, pa, a); return b && (ca = c), c; },
-          Sa = function(a) { return a || (a = f.currItem), a.initialZoomLevel; },
-          Ta = function(a) { return a || (a = f.currItem), a.w > 0 ? i.maxSpreadZoom : 1; },
-          Ua = function(a, b, c, d) { return d === f.currItem.initialZoomLevel ? (c[a] = f.currItem.initialPosition[a], !0) : (c[a] = Ka(a, d), c[a] > b.min[a] ? (c[a] = b.min[a], !0) : c[a] < b.max[a] ? (c[a] = b.max[a], !0) : !1); },
-          Va = function() {
-            if (E) { const b = N.perspective && !G; return u = 'translate' + (b ? '3d(' : '('), void (v = N.perspective ? ', 0px)' : ')'); }E = 'left', e.addClass(a, 'pswp--ie'), Ia = function(a, b) { b.left = a + 'px'; }, Ha = function(a) {
-              let b = a.fitRatio > 1 ? 1 : a.fitRatio,
-                c = a.container.style,
-                d = b * a.w,
-                e = b * a.h; c.width = d + 'px', c.height = e + 'px', c.left = a.initialPosition.x + 'px', c.top = a.initialPosition.y + 'px';
-            }, Ga = function() {
-              if (da) {
-                let a = da,
-                  b = f.currItem,
-                  c = b.fitRatio > 1 ? 1 : b.fitRatio,
-                  d = c * b.w,
-                  e = c * b.h; a.width = d + 'px', a.height = e + 'px', a.left = oa.x + 'px', a.top = oa.y + 'px';
-              }
-            };
-          },
-          Wa = function(a) { let b = ''; i.escKey && a.keyCode === 27 ? b = 'close' : i.arrowKeys && (a.keyCode === 37 ? b = 'prev' : a.keyCode === 39 && (b = 'next')), b && (a.ctrlKey || a.altKey || a.shiftKey || a.metaKey || (a.preventDefault ? a.preventDefault() : a.returnValue = !1, f[b]())); },
-          Xa = function(a) { a && (X || W || ea || S) && (a.preventDefault(), a.stopPropagation()); },
-          Ya = function() { f.setScrollOffset(0, e.getScrollY()); },
-          Za = {},
-          $a = 0,
-          _a = function(a) { Za[a] && (Za[a].raf && I(Za[a].raf), $a--, delete Za[a]); },
-          ab = function(a) { Za[a] && _a(a), Za[a] || ($a++, Za[a] = {}); },
-          bb = function() { for (const a in Za)Za.hasOwnProperty(a) && _a(a); },
-          cb = function(a, b, c, d, e, f, g) {
-            let h,
-              i = Da(); ab(a); var j = function() { if (Za[a]) { if (h = Da() - i, h >= d) return _a(a), f(c), void (g && g()); f((c - b) * e(h / d) + b), Za[a].raf = H(j); } }; j();
-          },
-          db = { shout: Ca, listen: Ba, viewportSize: pa, options: i, isMainScrollAnimating() { return ea; }, getZoomLevel() { return s; }, getCurrentIndex() { return m; }, isDragging() { return U; }, isZooming() { return _; }, setScrollOffset(a, b) { ra.x = a, M = ra.y = b, Ca('updateScrollOffset', ra); }, applyZoomPan(a, b, c, d) { oa.x = b, oa.y = c, s = a, Ga(d); }, init() { if (!j && !k) { let c; f.framework = e, f.template = a, f.bg = e.getChildByClass(a, 'pswp__bg'), J = a.className, j = !0, N = e.detectFeatures(), H = N.raf, I = N.caf, E = N.transform, L = N.oldIE, f.scrollWrap = e.getChildByClass(a, 'pswp__scroll-wrap'), f.container = e.getChildByClass(f.scrollWrap, 'pswp__container'), n = f.container.style, f.itemHolders = y = [{ el: f.container.children[0], wrap: 0, index: -1 }, { el: f.container.children[1], wrap: 0, index: -1 }, { el: f.container.children[2], wrap: 0, index: -1 }], y[0].el.style.display = y[2].el.style.display = 'none', Va(), r = { resize: f.updateSize, scroll: Ya, keydown: Wa, click: Xa }; const d = N.isOldIOSPhone || N.isOldAndroid || N.isMobileOpera; for (N.animationName && N.transform && !d || (i.showAnimationDuration = i.hideAnimationDuration = 0), c = 0; c < va.length; c++)f['init' + va[c]](); if (b) { const g = f.ui = new b(f, e); g.init(); }Ca('firstUpdate'), m = m || i.index || 0, (isNaN(m) || m < 0 || m >= _b()) && (m = 0), f.currItem = $b(m), (N.isOldIOSPhone || N.isOldAndroid) && (ua = !1), a.setAttribute('aria-hidden', 'false'), i.modal && (ua ? a.style.position = 'fixed' : (a.style.position = 'absolute', a.style.top = e.getScrollY() + 'px')), void 0 === M && (Ca('initialLayout'), M = K = e.getScrollY()); let l = 'pswp--open '; for (i.mainClass && (l += i.mainClass + ' '), i.showHideOpacity && (l += 'pswp--animate_opacity '), l += G ? 'pswp--touch' : 'pswp--notouch', l += N.animationName ? ' pswp--css_animation' : '', l += N.svg ? ' pswp--svg' : '', e.addClass(a, l), f.updateSize(), o = -1, ta = null, c = 0; h > c; c++)Ia((c + o) * sa.x, y[c].el.style); L || e.bind(f.scrollWrap, q, f), Ba('initialZoomInEnd', function() { f.setContent(y[0], m - 1), f.setContent(y[2], m + 1), y[0].el.style.display = y[2].el.style.display = 'block', i.focus && a.focus(), Pa(); }), f.setContent(y[1], m), f.updateCurrItem(), Ca('afterInit'), ua || (w = setInterval(function() { $a || U || _ || s !== f.currItem.initialZoomLevel || f.updateSize(); }, 1e3)), e.addClass(a, 'pswp--visible'); } }, close() { j && (j = !1, k = !0, Ca('close'), Qa(), bc(f.currItem, null, !0, f.destroy)); }, destroy() { Ca('destroy'), Wb && clearTimeout(Wb), a.setAttribute('aria-hidden', 'true'), a.className = J, w && clearInterval(w), e.unbind(f.scrollWrap, q, f), e.unbind(window, 'scroll', f), yb(), bb(), Aa = null; }, panTo(a, b, c) { c || (a > ca.min.x ? a = ca.min.x : a < ca.max.x && (a = ca.max.x), b > ca.min.y ? b = ca.min.y : b < ca.max.y && (b = ca.max.y)), oa.x = a, oa.y = b, Ga(); }, handleEvent(a) { a = a || window.event, r[a.type] && r[a.type](a); }, goTo(a) { a = za(a); const b = a - m; ta = b, m = a, f.currItem = $b(m), qa -= b, Ja(sa.x * qa), bb(), ea = !1, f.updateCurrItem(); }, next() { f.goTo(m + 1); }, prev() { f.goTo(m - 1); }, updateCurrZoomItem(a) { if (a && Ca('beforeChange', 0), y[1].el.children.length) { const b = y[1].el.children[0]; da = e.hasClass(b, 'pswp__zoom-wrap') ? b.style : null; } else da = null; ca = f.currItem.bounds, t = s = f.currItem.initialZoomLevel, oa.x = ca.center.x, oa.y = ca.center.y, a && Ca('afterChange'); }, invalidateCurrItems() { x = !0; for (let a = 0; h > a; a++)y[a].item && (y[a].item.needsUpdate = !0); }, updateCurrItem(a) {
-            if (ta !== 0) {
-              let b,
-                c = Math.abs(ta); if (!(a && c < 2)) { f.currItem = $b(m), xa = !1, Ca('beforeChange', ta), c >= h && (o += ta + (ta > 0 ? -h : h), c = h); for (let d = 0; c > d; d++)ta > 0 ? (b = y.shift(), y[h - 1] = b, o++, Ia((o + 2) * sa.x, b.el.style), f.setContent(b, m - c + d + 1 + 1)) : (b = y.pop(), y.unshift(b), o--, Ia(o * sa.x, b.el.style), f.setContent(b, m + c - d - 1 - 1)); if (da && Math.abs(ta) === 1) { const e = $b(z); e.initialZoomLevel !== s && (hc(e, pa), lc(e), Ha(e)); }ta = 0, f.updateCurrZoomItem(), z = m, Ca('afterChange'); }
-            }
-          }, updateSize(b) { if (!ua && i.modal) { const c = e.getScrollY(); if (M !== c && (a.style.top = c + 'px', M = c), !b && wa.x === window.innerWidth && wa.y === window.innerHeight) return; wa.x = window.innerWidth, wa.y = window.innerHeight, a.style.height = wa.y + 'px'; } if (pa.x = f.scrollWrap.clientWidth, pa.y = f.scrollWrap.clientHeight, Ya(), sa.x = pa.x + Math.round(pa.x * i.spacing), sa.y = pa.y, Ja(sa.x * qa), Ca('beforeResize'), void 0 !== o) { for (var d, g, j, k = 0; h > k; k++)d = y[k], Ia((k + o) * sa.x, d.el.style), j = m + k - 1, i.loop && _b() > 2 && (j = za(j)), g = $b(j), g && (x || g.needsUpdate || !g.bounds) ? (f.cleanSlide(g), f.setContent(d, j), k === 1 && (f.currItem = g, f.updateCurrZoomItem(!0)), g.needsUpdate = !1) : d.index === -1 && j >= 0 && f.setContent(d, j), g && g.container && (hc(g, pa), lc(g), Ha(g)); x = !1; }t = s = f.currItem.initialZoomLevel, ca = f.currItem.bounds, ca && (oa.x = ca.center.x, oa.y = ca.center.y, Ga(!0)), Ca('resize'); }, zoomTo(a, b, c, d, f) {
-            b && (t = s, tb.x = Math.abs(b.x) - oa.x, tb.y = Math.abs(b.y) - oa.y, La(na, oa)); let g = Ra(a, !1),
-              h = {}; Ua('x', g, h, a), Ua('y', g, h, a); let i = s,
-              j = { x: oa.x, y: oa.y }; Ma(h); const k = function(b) { b === 1 ? (s = a, oa.x = h.x, oa.y = h.y) : (s = (a - i) * b + i, oa.x = (h.x - j.x) * b + j.x, oa.y = (h.y - j.y) * b + j.y), f && f(b), Ga(b === 1); }; c ? cb('customZoomTo', 0, 1, c, d || e.easing.sine.inOut, k) : k(1);
-          } },
-          eb = 30,
-          fb = 10,
-          gb = {},
-          hb = {},
-          ib = {},
-          jb = {},
-          kb = {},
-          lb = [],
-          mb = {},
-          nb = [],
-          ob = {},
-          pb = 0,
-          qb = la(),
-          rb = 0,
-          sb = la(),
-          tb = la(),
-          ub = la(),
-          vb = function(a, b) { return a.x === b.x && a.y === b.y; },
-          wb = function(a, b) { return Math.abs(a.x - b.x) < g && Math.abs(a.y - b.y) < g; },
-          xb = function(a, b) { return ob.x = Math.abs(a.x - b.x), ob.y = Math.abs(a.y - b.y), Math.sqrt(ob.x * ob.x + ob.y * ob.y); },
-          yb = function() { Y && (I(Y), Y = null); },
-          zb = function() { U && (Y = H(zb), Pb()); },
-          Ab = function() { return !(i.scaleMode === 'fit' && s === f.currItem.initialZoomLevel); },
-          Bb = function(a, b) { return a && a !== document ? a.getAttribute('class') && a.getAttribute('class').indexOf('pswp__scroll-wrap') > -1 ? !1 : b(a) ? a : Bb(a.parentNode, b) : !1; },
-          Cb = {},
-          Db = function(a, b) { return Cb.prevent = !Bb(a.target, i.isClickableElement), Ca('preventDragEvent', a, b, Cb), Cb.prevent; },
-          Eb = function(a, b) { return b.x = a.pageX, b.y = a.pageY, b.id = a.identifier, b; },
-          Fb = function(a, b, c) { c.x = 0.5 * (a.x + b.x), c.y = 0.5 * (a.y + b.y); },
-          Gb = function(a, b, c) { if (a - P > 50) { const d = nb.length > 2 ? nb.shift() : {}; d.x = b, d.y = c, nb.push(d), P = a; } },
-          Hb = function() { const a = oa.y - f.currItem.initialPosition.y; return 1 - Math.abs(a / (pa.y / 2)); },
-          Ib = {},
-          Jb = {},
-          Kb = [],
-          Lb = function(a) { for (;Kb.length > 0;)Kb.pop(); return F ? (ka = 0, lb.forEach(function(a) { ka === 0 ? Kb[0] = a : ka === 1 && (Kb[1] = a), ka++; })) : a.type.indexOf('touch') > -1 ? a.touches && a.touches.length > 0 && (Kb[0] = Eb(a.touches[0], Ib), a.touches.length > 1 && (Kb[1] = Eb(a.touches[1], Jb))) : (Ib.x = a.pageX, Ib.y = a.pageY, Ib.id = '', Kb[0] = Ib), Kb; },
-          Mb = function(a, b) {
-            let c,
-              d,
-              e,
-              g,
-              h = 0,
-              j = oa[a] + b[a],
-              k = b[a] > 0,
-              l = sb.x + b.x,
-              m = sb.x - mb.x; return c = j > ca.min[a] || j < ca.max[a] ? i.panEndFriction : 1, j = oa[a] + b[a] * c, !i.allowPanToNext && s !== f.currItem.initialZoomLevel || (da ? fa !== 'h' || a !== 'x' || W || (k ? (j > ca.min[a] && (c = i.panEndFriction, h = ca.min[a] - j, d = ca.min[a] - na[a]), (d <= 0 || m < 0) && _b() > 1 ? (g = l, m < 0 && l > mb.x && (g = mb.x)) : ca.min.x !== ca.max.x && (e = j)) : (j < ca.max[a] && (c = i.panEndFriction, h = j - ca.max[a], d = na[a] - ca.max[a]), (d <= 0 || m > 0) && _b() > 1 ? (g = l, m > 0 && l < mb.x && (g = mb.x)) : ca.min.x !== ca.max.x && (e = j))) : g = l, a !== 'x') ? void (ea || Z || s > f.currItem.fitRatio && (oa[a] += b[a] * c)) : (void 0 !== g && (Ja(g, !0), Z = g === mb.x ? !1 : !0), ca.min.x !== ca.max.x && (void 0 !== e ? oa.x = e : Z || (oa.x += b.x * c)), void 0 !== g);
-          },
-          Nb = function(a) {
-            if (!(a.type === 'mousedown' && a.button > 0)) {
-              if (Zb) return void a.preventDefault(); if (!T || a.type !== 'mousedown') {
-                if (Db(a, !0) && a.preventDefault(), Ca('pointerDown'), F) { let b = e.arraySearch(lb, a.pointerId, 'id'); b < 0 && (b = lb.length), lb[b] = { x: a.pageX, y: a.pageY, id: a.pointerId }; } let c = Lb(a),
-                  d = c.length; $ = null, bb(), U && d !== 1 || (U = ga = !0, e.bind(window, p, f), R = ja = ha = S = Z = X = V = W = !1, fa = null, Ca('firstTouchStart', c), La(na, oa), ma.x = ma.y = 0, La(jb, c[0]), La(kb, jb), mb.x = sa.x * qa, nb = [{ x: jb.x, y: jb.y }], P = O = Da(), Ra(s, !0), yb(), zb()), !_ && d > 1 && !ea && !Z && (t = s, W = !1, _ = V = !0, ma.y = ma.x = 0, La(na, oa), La(gb, c[0]), La(hb, c[1]), Fb(gb, hb, ub), tb.x = Math.abs(ub.x) - oa.x, tb.y = Math.abs(ub.y) - oa.y, aa = ba = xb(gb, hb));
-              }
-            }
-          },
-          Ob = function(a) { if (a.preventDefault(), F) { const b = e.arraySearch(lb, a.pointerId, 'id'); if (b > -1) { const c = lb[b]; c.x = a.pageX, c.y = a.pageY; } } if (U) { const d = Lb(a); if (fa || X || _)$ = d; else if (sb.x !== sa.x * qa)fa = 'h'; else { const f = Math.abs(d[0].x - jb.x) - Math.abs(d[0].y - jb.y); Math.abs(f) >= fb && (fa = f > 0 ? 'h' : 'v', $ = d); } } },
-          Pb = function() {
-            if ($) {
-              const a = $.length; if (a !== 0) {
-                if (La(gb, $[0]), ib.x = gb.x - jb.x, ib.y = gb.y - jb.y, _ && a > 1) {
-                  if (jb.x = gb.x, jb.y = gb.y, !ib.x && !ib.y && vb($[1], hb)) return; La(hb, $[1]), W || (W = !0, Ca('zoomGestureStarted')); let b = xb(gb, hb),
-                    c = Ub(b); c > f.currItem.initialZoomLevel + f.currItem.initialZoomLevel / 15 && (ja = !0); let d = 1,
-                    e = Sa(),
-                    g = Ta(); if (e > c) {
-                    if (i.pinchToClose && !ja && t <= f.currItem.initialZoomLevel) {
-                      let h = e - c,
-                        j = 1 - h / (e / 1.2); Ea(j), Ca('onPinchClose', j), ha = !0;
-                    } else d = (e - c) / e, d > 1 && (d = 1), c = e - d * (e / 3);
-                  } else c > g && (d = (c - g) / (6 * e), d > 1 && (d = 1), c = g + d * e); d < 0 && (d = 0), aa = b, Fb(gb, hb, qb), ma.x += qb.x - ub.x, ma.y += qb.y - ub.y, La(ub, qb), oa.x = Ka('x', c), oa.y = Ka('y', c), R = c > s, s = c, Ga();
-                } else { if (!fa) return; if (ga && (ga = !1, Math.abs(ib.x) >= fb && (ib.x -= $[0].x - kb.x), Math.abs(ib.y) >= fb && (ib.y -= $[0].y - kb.y)), jb.x = gb.x, jb.y = gb.y, ib.x === 0 && ib.y === 0) return; if (fa === 'v' && i.closeOnVerticalDrag && !Ab()) { ma.y += ib.y, oa.y += ib.y; const k = Hb(); return S = !0, Ca('onVerticalDrag', k), Ea(k), void Ga(); }Gb(Da(), gb.x, gb.y), X = !0, ca = f.currItem.bounds; const l = Mb('x', ib); l || (Mb('y', ib), Ma(oa), Ga()); }
-              }
-            }
-          },
-          Qb = function(a) {
-            if (N.isOldAndroid) { if (T && a.type === 'mouseup') return; a.type.indexOf('touch') > -1 && (clearTimeout(T), T = setTimeout(function() { T = 0; }, 600)); }Ca('pointerUp'), Db(a, !1) && a.preventDefault(); let b; if (F) { const c = e.arraySearch(lb, a.pointerId, 'id'); if (c > -1) if (b = lb.splice(c, 1)[0], navigator.pointerEnabled)b.type = a.pointerType || 'mouse'; else { const d = { 4: 'mouse', 2: 'touch', 3: 'pen' }; b.type = d[a.pointerType], b.type || (b.type = a.pointerType || 'mouse'); } } let g,
-              h = Lb(a),
-              j = h.length; if (a.type === 'mouseup' && (j = 0), j === 2) return $ = null, !0; j === 1 && La(kb, h[0]), j !== 0 || fa || ea || (b || (a.type === 'mouseup' ? b = { x: a.pageX, y: a.pageY, type: 'mouse' } : a.changedTouches && a.changedTouches[0] && (b = { x: a.changedTouches[0].pageX, y: a.changedTouches[0].pageY, type: 'touch' })), Ca('touchRelease', a, b)); let k = -1; if (j === 0 && (U = !1, e.unbind(window, p, f), yb(), _ ? k = 0 : rb !== -1 && (k = Da() - rb)), rb = j === 1 ? Da() : -1, g = k !== -1 && k < 150 ? 'zoom' : 'swipe', _ && j < 2 && (_ = !1, j === 1 && (g = 'zoomPointerUp'), Ca('zoomGestureEnded')), $ = null, X || W || ea || S) {
-              if (bb(), Q || (Q = Rb()), Q.calculateSwipeSpeed('x'), S) {
-                const l = Hb(); if (l < i.verticalDragRange)f.close(); else {
-                  let m = oa.y,
-                    n = ia; cb('verticalDrag', 0, 1, 300, e.easing.cubic.out, function(a) { oa.y = (f.currItem.initialPosition.y - m) * a + m, Ea((1 - n) * a + n), Ga(); }), Ca('onVerticalDrag', 1);
-                }
-              } else { if ((Z || ea) && j === 0) { const o = Tb(g, Q); if (o) return; g = 'zoomPointerUp'; } if (!ea) return g !== 'swipe' ? void Vb() : void (!Z && s > f.currItem.fitRatio && Sb(Q)); }
-            }
-          },
-          Rb = function() {
-            var a,
-              b,
-              c = { lastFlickOffset: {}, lastFlickDist: {}, lastFlickSpeed: {}, slowDownRatio: {}, slowDownRatioReverse: {}, speedDecelerationRatio: {}, speedDecelerationRatioAbs: {}, distanceOffset: {}, backAnimDestination: {}, backAnimStarted: {}, calculateSwipeSpeed(d) { nb.length > 1 ? (a = Da() - P + 50, b = nb[nb.length - 2][d]) : (a = Da() - O, b = kb[d]), c.lastFlickOffset[d] = jb[d] - b, c.lastFlickDist[d] = Math.abs(c.lastFlickOffset[d]), c.lastFlickDist[d] > 20 ? c.lastFlickSpeed[d] = c.lastFlickOffset[d] / a : c.lastFlickSpeed[d] = 0, Math.abs(c.lastFlickSpeed[d]) < 0.1 && (c.lastFlickSpeed[d] = 0), c.slowDownRatio[d] = 0.95, c.slowDownRatioReverse[d] = 1 - c.slowDownRatio[d], c.speedDecelerationRatio[d] = 1; }, calculateOverBoundsAnimOffset(a, b) { c.backAnimStarted[a] || (oa[a] > ca.min[a] ? c.backAnimDestination[a] = ca.min[a] : oa[a] < ca.max[a] && (c.backAnimDestination[a] = ca.max[a]), void 0 !== c.backAnimDestination[a] && (c.slowDownRatio[a] = 0.7, c.slowDownRatioReverse[a] = 1 - c.slowDownRatio[a], c.speedDecelerationRatioAbs[a] < 0.05 && (c.lastFlickSpeed[a] = 0, c.backAnimStarted[a] = !0, cb('bounceZoomPan' + a, oa[a], c.backAnimDestination[a], b || 300, e.easing.sine.out, function(b) { oa[a] = b, Ga(); })))); }, calculateAnimOffset(a) { c.backAnimStarted[a] || (c.speedDecelerationRatio[a] = c.speedDecelerationRatio[a] * (c.slowDownRatio[a] + c.slowDownRatioReverse[a] - c.slowDownRatioReverse[a] * c.timeDiff / 10), c.speedDecelerationRatioAbs[a] = Math.abs(c.lastFlickSpeed[a] * c.speedDecelerationRatio[a]), c.distanceOffset[a] = c.lastFlickSpeed[a] * c.speedDecelerationRatio[a] * c.timeDiff, oa[a] += c.distanceOffset[a]); }, panAnimLoop() { return Za.zoomPan && (Za.zoomPan.raf = H(c.panAnimLoop), c.now = Da(), c.timeDiff = c.now - c.lastNow, c.lastNow = c.now, c.calculateAnimOffset('x'), c.calculateAnimOffset('y'), Ga(), c.calculateOverBoundsAnimOffset('x'), c.calculateOverBoundsAnimOffset('y'), c.speedDecelerationRatioAbs.x < 0.05 && c.speedDecelerationRatioAbs.y < 0.05) ? (oa.x = Math.round(oa.x), oa.y = Math.round(oa.y), Ga(), void _a('zoomPan')) : void 0; } }; return c;
-          },
-          Sb = function(a) { return a.calculateSwipeSpeed('y'), ca = f.currItem.bounds, a.backAnimDestination = {}, a.backAnimStarted = {}, Math.abs(a.lastFlickSpeed.x) <= 0.05 && Math.abs(a.lastFlickSpeed.y) <= 0.05 ? (a.speedDecelerationRatioAbs.x = a.speedDecelerationRatioAbs.y = 0, a.calculateOverBoundsAnimOffset('x'), a.calculateOverBoundsAnimOffset('y'), !0) : (ab('zoomPan'), a.lastNow = Da(), void a.panAnimLoop()); },
-          Tb = function(a, b) {
-            let c; ea || (pb = m); let d; if (a === 'swipe') {
-              let g = jb.x - kb.x,
-                h = b.lastFlickDist.x < 10; g > eb && (h || b.lastFlickOffset.x > 20) ? d = -1 : -eb > g && (h || b.lastFlickOffset.x < -20) && (d = 1);
-            } let j; d && (m += d, m < 0 ? (m = i.loop ? _b() - 1 : 0, j = !0) : m >= _b() && (m = i.loop ? 0 : _b() - 1, j = !0), (!j || i.loop) && (ta += d, qa -= d, c = !0)); let k,
-              l = sa.x * qa,
-              n = Math.abs(l - sb.x); return c || l > sb.x == b.lastFlickSpeed.x > 0 ? (k = Math.abs(b.lastFlickSpeed.x) > 0 ? n / Math.abs(b.lastFlickSpeed.x) : 333, k = Math.min(k, 400), k = Math.max(k, 250)) : k = 333, pb === m && (c = !1), ea = !0, Ca('mainScrollAnimStart'), cb('mainScroll', sb.x, l, k, e.easing.cubic.out, Ja, function() { bb(), ea = !1, pb = -1, (c || pb !== m) && f.updateCurrItem(), Ca('mainScrollAnimComplete'); }), c && f.updateCurrItem(!0), c;
-          },
-          Ub = function(a) { return 1 / ba * a * t; },
-          Vb = function() {
-            let a = s,
-              b = Sa(),
-              c = Ta(); b > s ? a = b : s > c && (a = c); let d,
-              g = 1,
-              h = ia; return ha && !R && !ja && b > s ? (f.close(), !0) : (ha && (d = function(a) { Ea((g - h) * a + h); }), f.zoomTo(a, 0, 200, e.easing.cubic.out, d), !0);
-          }; ya('Gestures', { publicMethods: { initGestures() { const a = function(a, b, c, d, e) { A = a + b, B = a + c, C = a + d, D = e ? a + e : ''; }; F = N.pointerEvent, F && N.touch && (N.touch = !1), F ? navigator.pointerEnabled ? a('pointer', 'down', 'move', 'up', 'cancel') : a('MSPointer', 'Down', 'Move', 'Up', 'Cancel') : N.touch ? (a('touch', 'start', 'move', 'end', 'cancel'), G = !0) : a('mouse', 'down', 'move', 'up'), p = B + ' ' + C + ' ' + D, q = A, F && !G && (G = navigator.maxTouchPoints > 1 || navigator.msMaxTouchPoints > 1), f.likelyTouchDevice = G, r[A] = Nb, r[B] = Ob, r[C] = Qb, D && (r[D] = r[C]), N.touch && (q += ' mousedown', p += ' mousemove mouseup', r.mousedown = r[A], r.mousemove = r[B], r.mouseup = r[C]), G || (i.allowPanToNext = !1); } } }); var Wb,
-          Xb,
-          Yb,
-          Zb,
-          $b,
-          _b,
-          ac,
-          bc = function(b, c, d, g) {
-            Wb && clearTimeout(Wb), Zb = !0, Yb = !0; let h; b.initialLayout ? (h = b.initialLayout, b.initialLayout = null) : h = i.getThumbBoundsFn && i.getThumbBoundsFn(m); let j = d ? i.hideAnimationDuration : i.showAnimationDuration,
-              k = function() { _a('initialZoom'), d ? (f.template.removeAttribute('style'), f.bg.removeAttribute('style')) : (Ea(1), c && (c.style.display = 'block'), e.addClass(a, 'pswp--animated-in'), Ca('initialZoom' + (d ? 'OutEnd' : 'InEnd'))), g && g(), Zb = !1; }; if (!j || !h || void 0 === h.x) return Ca('initialZoom' + (d ? 'Out' : 'In')), s = b.initialZoomLevel, La(oa, b.initialPosition), Ga(), a.style.opacity = d ? 0 : 1, Ea(1), void (j ? setTimeout(function() { k(); }, j) : k()); const n = function() {
-              let c = l,
-                g = !f.currItem.src || f.currItem.loadError || i.showHideOpacity; b.miniImg && (b.miniImg.style.webkitBackfaceVisibility = 'hidden'), d || (s = h.w / b.w, oa.x = h.x, oa.y = h.y - K, f[g ? 'template' : 'bg'].style.opacity = 0.001, Ga()), ab('initialZoom'), d && !c && e.removeClass(a, 'pswp--animated-in'), g && (d ? e[(c ? 'remove' : 'add') + 'Class'](a, 'pswp--animate_opacity') : setTimeout(function() { e.addClass(a, 'pswp--animate_opacity'); }, 30)), Wb = setTimeout(function() {
-                if (Ca('initialZoom' + (d ? 'Out' : 'In')), d) {
-                  let f = h.w / b.w,
-                    i = { x: oa.x, y: oa.y },
-                    l = s,
-                    m = ia,
-                    n = function(b) { b === 1 ? (s = f, oa.x = h.x, oa.y = h.y - M) : (s = (f - l) * b + l, oa.x = (h.x - i.x) * b + i.x, oa.y = (h.y - M - i.y) * b + i.y), Ga(), g ? a.style.opacity = 1 - b : Ea(m - b * m); }; c ? cb('initialZoom', 0, 1, j, e.easing.cubic.out, n, k) : (n(1), Wb = setTimeout(k, j + 20));
-                } else s = b.initialZoomLevel, La(oa, b.initialPosition), Ga(), Ea(1), g ? a.style.opacity = 1 : Ea(1), Wb = setTimeout(k, j + 20);
-              }, d ? 25 : 90);
-            }; n();
-          },
-          cc = {},
-          dc = [],
-          ec = { index: 0, errorMsg: '<div class="pswp__error-msg"><a href="%url%" target="_blank">The image</a> could not be loaded.</div>', forceProgressiveLoading: !1, preload: [ 1, 1 ], getNumItemsFn() { return Xb.length; } },
-          fc = function() { return { center: { x: 0, y: 0 }, max: { x: 0, y: 0 }, min: { x: 0, y: 0 } }; },
-          gc = function(a, b, c) { const d = a.bounds; d.center.x = Math.round((cc.x - b) / 2), d.center.y = Math.round((cc.y - c) / 2) + a.vGap.top, d.max.x = b > cc.x ? Math.round(cc.x - b) : d.center.x, d.max.y = c > cc.y ? Math.round(cc.y - c) + a.vGap.top : d.center.y, d.min.x = b > cc.x ? 0 : d.center.x, d.min.y = c > cc.y ? a.vGap.top : d.center.y; },
-          hc = function(a, b, c) {
-            if (a.src && !a.loadError) {
-              const d = !c; if (d && (a.vGap || (a.vGap = { top: 0, bottom: 0 }), Ca('parseVerticalMargin', a)), cc.x = b.x, cc.y = b.y - a.vGap.top - a.vGap.bottom, d) {
-                let e = cc.x / a.w,
-                  f = cc.y / a.h; a.fitRatio = f > e ? e : f; const g = i.scaleMode; g === 'orig' ? c = 1 : g === 'fit' && (c = a.fitRatio), c > 1 && (c = 1), a.initialZoomLevel = c, a.bounds || (a.bounds = fc());
-              } if (!c) return; return gc(a, a.w * c, a.h * c), d && c === a.initialZoomLevel && (a.initialPosition = a.bounds.center), a.bounds;
-            } return a.w = a.h = 0, a.initialZoomLevel = a.fitRatio = 1, a.bounds = fc(), a.initialPosition = a.bounds.center, a.bounds;
-          },
-          ic = function(a, b, c, d, e, g) { b.loadError || d && (b.imageAppended = !0, lc(b, d, b === f.currItem && xa), c.appendChild(d), g && setTimeout(function() { b && b.loaded && b.placeholder && (b.placeholder.style.display = 'none', b.placeholder = null); }, 500)); },
-          jc = function(a) {
-            a.loading = !0, a.loaded = !1; let b = a.img = e.createEl('pswp__img', 'img'),
-              c = function() { a.loading = !1, a.loaded = !0, a.loadComplete ? a.loadComplete(a) : a.img = null, b.onload = b.onerror = null, b = null; }; return b.onload = c, b.onerror = function() { a.loadError = !0, c(); }, b.src = a.src, b;
-          },
-          kc = function(a, b) { return a.src && a.loadError && a.container ? (b && (a.container.innerHTML = ''), a.container.innerHTML = i.errorMsg.replace('%url%', a.src), !0) : void 0; },
-          lc = function(a, b, c) {
-            if (a.src) {
-              b || (b = a.container.lastChild); let d = c ? a.w : Math.round(a.w * a.fitRatio),
-                e = c ? a.h : Math.round(a.h * a.fitRatio); a.placeholder && !a.loaded && (a.placeholder.style.width = d + 'px', a.placeholder.style.height = e + 'px'), b.style.width = d + 'px', b.style.height = e + 'px';
-            }
-          },
-          mc = function() { if (dc.length) { for (var a, b = 0; b < dc.length; b++)a = dc[b], a.holder.index === a.index && ic(a.index, a.item, a.baseDiv, a.img, !1, a.clearPlaceholder); dc = []; } }; ya('Controller', { publicMethods: { lazyLoadItem(a) { a = za(a); const b = $b(a); b && (!b.loaded && !b.loading || x) && (Ca('gettingData', a, b), b.src && jc(b)); }, initController() {
-          e.extend(i, ec, !0), f.items = Xb = c, $b = f.getItemAt, _b = i.getNumItemsFn, ac = i.loop, _b() < 3 && (i.loop = !1), Ba('beforeChange', function(a) {
-            let b,
-              c = i.preload,
-              d = a === null ? !0 : a >= 0,
-              e = Math.min(c[0], _b()),
-              g = Math.min(c[1], _b()); for (b = 1; (d ? g : e) >= b; b++)f.lazyLoadItem(m + b); for (b = 1; (d ? e : g) >= b; b++)f.lazyLoadItem(m - b);
-          }), Ba('initialLayout', function() { f.currItem.initialLayout = i.getThumbBoundsFn && i.getThumbBoundsFn(m); }), Ba('mainScrollAnimComplete', mc), Ba('initialZoomInEnd', mc), Ba('destroy', function() { for (var a, b = 0; b < Xb.length; b++)a = Xb[b], a.container && (a.container = null), a.placeholder && (a.placeholder = null), a.img && (a.img = null), a.preloader && (a.preloader = null), a.loadError && (a.loaded = a.loadError = !1); dc = null; });
-        }, getItemAt(a) { return a >= 0 && void 0 !== Xb[a] ? Xb[a] : !1; }, allowProgressiveImg() { return i.forceProgressiveLoading || !G || i.mouseUsed || screen.width > 1200; }, setContent(a, b) {
-          i.loop && (b = za(b)); const c = f.getItemAt(a.index); c && (c.container = null); let d,
-            g = f.getItemAt(b); if (!g) return void (a.el.innerHTML = ''); Ca('gettingData', b, g), a.index = b, a.item = g; const h = g.container = e.createEl('pswp__zoom-wrap'); if (!g.src && g.html && (g.html.tagName ? h.appendChild(g.html) : h.innerHTML = g.html), kc(g), hc(g, pa), !g.src || g.loadError || g.loaded)g.src && !g.loadError && (d = e.createEl('pswp__img', 'img'), d.style.opacity = 1, d.src = g.src, lc(g, d), ic(b, g, h, d, !0)); else { if (g.loadComplete = function(c) { if (j) { if (a && a.index === b) { if (kc(c, !0)) return c.loadComplete = c.img = null, hc(c, pa), Ha(c), void (a.index === m && f.updateCurrZoomItem()); c.imageAppended ? !Zb && c.placeholder && (c.placeholder.style.display = 'none', c.placeholder = null) : N.transform && (ea || Zb) ? dc.push({ item: c, baseDiv: h, img: c.img, index: b, holder: a, clearPlaceholder: !0 }) : ic(b, c, h, c.img, ea || Zb, !0); }c.loadComplete = null, c.img = null, Ca('imageLoadComplete', b, c); } }, e.features.transform) { let k = 'pswp__img pswp__img--placeholder'; k += g.msrc ? '' : ' pswp__img--placeholder--blank'; const l = e.createEl(k, g.msrc ? 'img' : ''); g.msrc && (l.src = g.msrc), lc(g, l), h.appendChild(l), g.placeholder = l; }g.loading || jc(g), f.allowProgressiveImg() && (!Yb && N.transform ? dc.push({ item: g, baseDiv: h, img: g.img, index: b, holder: a }) : ic(b, g, h, g.img, !0, !0)); }Yb || b !== m ? Ha(g) : (da = h.style, bc(g, d || g.img)), a.el.innerHTML = '', a.el.appendChild(h);
-        }, cleanSlide(a) { a.img && (a.img.onload = a.img.onerror = null), a.loaded = a.loading = a.img = a.imageAppended = !1; } } }); let nc,
-          oc = {},
-          pc = function(a, b, c) {
-            let d = document.createEvent('CustomEvent'),
-              e = { origEvent: a, target: a.target, releasePoint: b, pointerType: c || 'touch' }; d.initCustomEvent('pswpTap', !0, !0, e), a.target.dispatchEvent(d);
-          }; ya('Tap', { publicMethods: { initTap() { Ba('firstTouchStart', f.onTapStart), Ba('touchRelease', f.onTapRelease), Ba('destroy', function() { oc = {}, nc = null; }); }, onTapStart(a) { a.length > 1 && (clearTimeout(nc), nc = null); }, onTapRelease(a, b) { if (b && !X && !V && !$a) { const c = b; if (nc && (clearTimeout(nc), nc = null, wb(c, oc))) return void Ca('doubleTap', c); if (b.type === 'mouse') return void pc(a, b, 'mouse'); const d = a.target.tagName.toUpperCase(); if (d === 'BUTTON' || e.hasClass(a.target, 'pswp__single-tap')) return void pc(a, b); La(oc, c), nc = setTimeout(function() { pc(a, b), nc = null; }, 300); } } } }); let qc; ya('DesktopZoom', { publicMethods: { initDesktopZoom() { L || (G ? Ba('mouseUsed', function() { f.setupDesktopZoom(); }) : f.setupDesktopZoom(!0)); }, setupDesktopZoom(b) {
-          qc = {}; const c = 'wheel mousewheel DOMMouseScroll'; Ba('bindEvents', function() { e.bind(a, c, f.handleMouseWheel); }), Ba('unbindEvents', function() { qc && e.unbind(a, c, f.handleMouseWheel); }), f.mouseZoomedIn = !1; var d,
-            g = function() { f.mouseZoomedIn && (e.removeClass(a, 'pswp--zoomed-in'), f.mouseZoomedIn = !1), s < 1 ? e.addClass(a, 'pswp--zoom-allowed') : e.removeClass(a, 'pswp--zoom-allowed'), h(); },
-            h = function() { d && (e.removeClass(a, 'pswp--dragging'), d = !1); }; Ba('resize', g), Ba('afterChange', g), Ba('pointerDown', function() { f.mouseZoomedIn && (d = !0, e.addClass(a, 'pswp--dragging')); }), Ba('pointerUp', h), b || g();
-        }, handleMouseWheel(a) {
-          if (s <= f.currItem.fitRatio) return i.modal && (!i.closeOnScroll || $a || U ? a.preventDefault() : E && Math.abs(a.deltaY) > 2 && (l = !0, f.close())), !0; if (a.stopPropagation(), qc.x = 0, 'deltaX' in a)a.deltaMode === 1 ? (qc.x = 18 * a.deltaX, qc.y = 18 * a.deltaY) : (qc.x = a.deltaX, qc.y = a.deltaY); else if ('wheelDelta' in a)a.wheelDeltaX && (qc.x = -0.16 * a.wheelDeltaX), a.wheelDeltaY ? qc.y = -0.16 * a.wheelDeltaY : qc.y = -0.16 * a.wheelDelta; else { if (!('detail' in a)) return; qc.y = a.detail; }Ra(s, !0); let b = oa.x - qc.x,
-            c = oa.y - qc.y; (i.modal || b <= ca.min.x && b >= ca.max.x && c <= ca.min.y && c >= ca.max.y) && a.preventDefault(), f.panTo(b, c);
-        }, toggleDesktopZoom(b) {
-          b = b || { x: pa.x / 2 + ra.x, y: pa.y / 2 + ra.y }; let c = i.getDoubleTapZoom(!0, f.currItem),
-            d = s === c; f.mouseZoomedIn = !d, f.zoomTo(d ? f.currItem.initialZoomLevel : c, b, 333), e[(d ? 'remove' : 'add') + 'Class'](a, 'pswp--zoomed-in');
-        } } }); var rc,
-          sc,
-          tc,
-          uc,
-          vc,
-          wc,
-          xc,
-          yc,
-          zc,
-          Ac,
-          Bc,
-          Cc,
-          Dc = { history: !0, galleryUID: 1 },
-          Ec = function() { return Bc.hash.substring(1); },
-          Fc = function() { rc && clearTimeout(rc), tc && clearTimeout(tc); },
-          Gc = function() {
-            let a = Ec(),
-              b = {}; if (a.length < 5) return b; let c,
-              d = a.split('&'); for (c = 0; c < d.length; c++) if (d[c]) { const e = d[c].split('='); e.length < 2 || (b[e[0]] = e[1]); } if (i.galleryPIDs) { const f = b.pid; for (b.pid = 0, c = 0; c < Xb.length; c++) if (Xb[c].pid === f) { b.pid = c; break; } } else b.pid = parseInt(b.pid, 10) - 1; return b.pid < 0 && (b.pid = 0), b;
-          },
-          Hc = function() {
-            if (tc && clearTimeout(tc), $a || U) return void (tc = setTimeout(Hc, 500)); uc ? clearTimeout(sc) : uc = !0; let a = m + 1,
-              b = $b(m); b.hasOwnProperty('pid') && (a = b.pid); const c = xc + '&gid=' + i.galleryUID + '&pid=' + a; yc || Bc.hash.indexOf(c) === -1 && (Ac = !0); const d = Bc.href.split('#')[0] + '#' + c; Cc ? '#' + c !== window.location.hash && history[yc ? 'replaceState' : 'pushState']('', document.title, d) : yc ? Bc.replace(d) : Bc.hash = c, yc = !0, sc = setTimeout(function() { uc = !1; }, 60);
-          }; ya('History', { publicMethods: { initHistory() { if (e.extend(i, Dc, !0), i.history) { Bc = window.location, Ac = !1, zc = !1, yc = !1, xc = Ec(), Cc = 'pushState' in history, xc.indexOf('gid=') > -1 && (xc = xc.split('&gid=')[0], xc = xc.split('?gid=')[0]), Ba('afterChange', f.updateURL), Ba('unbindEvents', function() { e.unbind(window, 'hashchange', f.onHashChange); }); const a = function() { wc = !0, zc || (Ac ? history.back() : xc ? Bc.hash = xc : Cc ? history.pushState('', document.title, Bc.pathname + Bc.search) : Bc.hash = ''), Fc(); }; Ba('unbindEvents', function() { l && a(); }), Ba('destroy', function() { wc || a(); }), Ba('firstUpdate', function() { m = Gc().pid; }); const b = xc.indexOf('pid='); b > -1 && (xc = xc.substring(0, b), xc.slice(-1) === '&' && (xc = xc.slice(0, -1))), setTimeout(function() { j && e.bind(window, 'hashchange', f.onHashChange); }, 40); } }, onHashChange() { return Ec() === xc ? (zc = !0, void f.close()) : void (uc || (vc = !0, f.goTo(Gc().pid), vc = !1)); }, updateURL() { Fc(), vc || (yc ? rc = setTimeout(Hc, 800) : Hc()); } } }), e.extend(f, db);
-      }; return a;
-    });
+	!function(a, b) {  true ? !(__WEBPACK_AMD_DEFINE_FACTORY__ = (b), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : typeof exports === 'object' ? module.exports = b() : a.PhotoSwipe = b(); }(this, function() {
+	  'use strict'; const a = function(a, b, c, d) {
+	    var e = { features: null, bind(a, b, c, d) { const e = (d ? 'remove' : 'add') + 'EventListener'; b = b.split(' '); for (let f = 0; f < b.length; f++)b[f] && a[e](b[f], c, !1); }, isArray(a) { return a instanceof Array; }, createEl(a, b) { const c = document.createElement(b || 'div'); return a && (c.className = a), c; }, getScrollY() { const a = window.pageYOffset; return void 0 !== a ? a : document.documentElement.scrollTop; }, unbind(a, b, c) { e.bind(a, b, c, !0); }, removeClass(a, b) { const c = new RegExp('(\\s|^)' + b + '(\\s|$)'); a.className = a.className.replace(c, ' ').replace(/^\s\s*/, '').replace(/\s\s*$/, ''); }, addClass(a, b) { e.hasClass(a, b) || (a.className += (a.className ? ' ' : '') + b); }, hasClass(a, b) { return a.className && new RegExp('(^|\\s)' + b + '(\\s|$)').test(a.className); }, getChildByClass(a, b) { for (let c = a.firstChild; c;) { if (e.hasClass(c, b)) return c; c = c.nextSibling; } }, arraySearch(a, b, c) { for (let d = a.length; d--;) if (a[d][c] === b) return d; return -1; }, extend(a, b, c) { for (const d in b) if (b.hasOwnProperty(d)) { if (c && a.hasOwnProperty(d)) continue; a[d] = b[d]; } }, easing: { sine: { out(a) { return Math.sin(a * (Math.PI / 2)); }, inOut(a) { return -(Math.cos(Math.PI * a) - 1) / 2; } }, cubic: { out(a) { return --a * a * a + 1; } } }, detectFeatures() {
+	      if (e.features) return e.features; let a = e.createEl(),
+	        b = a.style,
+	        c = '',
+	        d = {}; if (d.oldIE = document.all && !document.addEventListener, d.touch = 'ontouchstart' in window, window.requestAnimationFrame && (d.raf = window.requestAnimationFrame, d.caf = window.cancelAnimationFrame), d.pointerEvent = navigator.pointerEnabled || navigator.msPointerEnabled, !d.pointerEvent) {
+	        const f = navigator.userAgent; if (/iP(hone|od)/.test(navigator.platform)) { let g = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/); g && g.length > 0 && (g = parseInt(g[1], 10), g >= 1 && g < 8 && (d.isOldIOSPhone = !0)); } let h = f.match(/Android\s([0-9\.]*)/),
+	          i = h ? h[1] : 0; i = parseFloat(i), i >= 1 && (i < 4.4 && (d.isOldAndroid = !0), d.androidVersion = i), d.isMobileOpera = /opera mini|opera mobi/i.test(f);
+	      } for (var j, k, l = [ 'transform', 'perspective', 'animationName' ], m = [ '', 'webkit', 'Moz', 'ms', 'O' ], n = 0; n < 4; n++) { c = m[n]; for (let o = 0; o < 3; o++)j = l[o], k = c + (c ? j.charAt(0).toUpperCase() + j.slice(1) : j), !d[j] && k in b && (d[j] = k); c && !d.raf && (c = c.toLowerCase(), d.raf = window[c + 'RequestAnimationFrame'], d.raf && (d.caf = window[c + 'CancelAnimationFrame'] || window[c + 'CancelRequestAnimationFrame'])); } if (!d.raf) {
+	        let p = 0; d.raf = function(a) {
+	          let b = (new Date()).getTime(),
+	            c = Math.max(0, 16 - (b - p)),
+	            d = window.setTimeout(function() { a(b + c); }, c); return p = b + c, d;
+	        }, d.caf = function(a) { clearTimeout(a); };
+	      } return d.svg = !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect, e.features = d, d;
+	    } }; e.detectFeatures(), e.features.oldIE && (e.bind = function(a, b, c, d) { b = b.split(' '); for (var e, f = (d ? 'detach' : 'attach') + 'Event', g = function() { c.handleEvent.call(c); }, h = 0; h < b.length; h++) if (e = b[h]) if (typeof c === 'object' && c.handleEvent) { if (d) { if (!c['oldIE' + e]) return !1; } else c['oldIE' + e] = g; a[f]('on' + e, c['oldIE' + e]); } else a[f]('on' + e, c); }); let f = this,
+	      g = 25,
+	      h = 3,
+	      i = { allowPanToNext: !0, spacing: 0.12, bgOpacity: 1, mouseUsed: !1, loop: !0, pinchToClose: !0, closeOnScroll: !0, closeOnVerticalDrag: !0, verticalDragRange: 0.75, hideAnimationDuration: 333, showAnimationDuration: 333, showHideOpacity: !1, focus: !0, escKey: !0, arrowKeys: !0, mainScrollEndFriction: 0.35, panEndFriction: 0.35, isClickableElement(a) { return a.tagName === 'A'; }, getDoubleTapZoom(a, b) { return a ? 1 : b.initialZoomLevel < 0.7 ? 1 : 1.33; }, maxSpreadZoom: 1.33, modal: !0, scaleMode: 'fit' }; e.extend(i, d); var j,
+	      k,
+	      l,
+	      m,
+	      n,
+	      o,
+	      p,
+	      q,
+	      r,
+	      s,
+	      t,
+	      u,
+	      v,
+	      w,
+	      x,
+	      y,
+	      z,
+	      A,
+	      B,
+	      C,
+	      D,
+	      E,
+	      F,
+	      G,
+	      H,
+	      I,
+	      J,
+	      K,
+	      L,
+	      M,
+	      N,
+	      O,
+	      P,
+	      Q,
+	      R,
+	      S,
+	      T,
+	      U,
+	      V,
+	      W,
+	      X,
+	      Y,
+	      Z,
+	      $,
+	      _,
+	      aa,
+	      ba,
+	      ca,
+	      da,
+	      ea,
+	      fa,
+	      ga,
+	      ha,
+	      ia,
+	      ja,
+	      ka,
+	      la = function() { return { x: 0, y: 0 }; },
+	      ma = la(),
+	      na = la(),
+	      oa = la(),
+	      pa = {},
+	      qa = 0,
+	      ra = {},
+	      sa = la(),
+	      ta = 0,
+	      ua = !0,
+	      va = [],
+	      wa = {},
+	      xa = !1,
+	      ya = function(a, b) { e.extend(f, b.publicMethods), va.push(a); },
+	      za = function(a) { const b = _b(); return a > b - 1 ? a - b : a < 0 ? b + a : a; },
+	      Aa = {},
+	      Ba = function(a, b) { return Aa[a] || (Aa[a] = []), Aa[a].push(b); },
+	      Ca = function(a) { const b = Aa[a]; if (b) { const c = Array.prototype.slice.call(arguments); c.shift(); for (let d = 0; d < b.length; d++)b[d].apply(f, c); } },
+	      Da = function() { return (new Date()).getTime(); },
+	      Ea = function(a) { ia = a, f.bg.style.opacity = a * i.bgOpacity; },
+	      Fa = function(a, b, c, d, e) { (!xa || e && e !== f.currItem) && (d /= e ? e.fitRatio : f.currItem.fitRatio), a[E] = u + b + 'px, ' + c + 'px' + v + ' scale(' + d + ')'; },
+	      Ga = function(a) { da && (a && (s > f.currItem.fitRatio ? xa || (lc(f.currItem, !1, !0), xa = !0) : xa && (lc(f.currItem), xa = !1)), Fa(da, oa.x, oa.y, s)); },
+	      Ha = function(a) { a.container && Fa(a.container.style, a.initialPosition.x, a.initialPosition.y, a.initialZoomLevel, a); },
+	      Ia = function(a, b) { b[E] = u + a + 'px, 0px' + v; },
+	      Ja = function(a, b) {
+	        if (!i.loop && b) {
+	          let c = m + (sa.x * qa - a) / sa.x,
+	            d = Math.round(a - sb.x); (c < 0 && d > 0 || c >= _b() - 1 && d < 0) && (a = sb.x + d * i.mainScrollEndFriction);
+	        }sb.x = a, Ia(a, n);
+	      },
+	      Ka = function(a, b) { const c = tb[a] - ra[a]; return na[a] + ma[a] + c - c * (b / t); },
+	      La = function(a, b) { a.x = b.x, a.y = b.y, b.id && (a.id = b.id); },
+	      Ma = function(a) { a.x = Math.round(a.x), a.y = Math.round(a.y); },
+	      Na = null,
+	      Oa = function() { Na && (e.unbind(document, 'mousemove', Oa), e.addClass(a, 'pswp--has_mouse'), i.mouseUsed = !0, Ca('mouseUsed')), Na = setTimeout(function() { Na = null; }, 100); },
+	      Pa = function() { e.bind(document, 'keydown', f), N.transform && e.bind(f.scrollWrap, 'click', f), i.mouseUsed || e.bind(document, 'mousemove', Oa), e.bind(window, 'resize scroll', f), Ca('bindEvents'); },
+	      Qa = function() { e.unbind(window, 'resize', f), e.unbind(window, 'scroll', r.scroll), e.unbind(document, 'keydown', f), e.unbind(document, 'mousemove', Oa), N.transform && e.unbind(f.scrollWrap, 'click', f), U && e.unbind(window, p, f), Ca('unbindEvents'); },
+	      Ra = function(a, b) { const c = hc(f.currItem, pa, a); return b && (ca = c), c; },
+	      Sa = function(a) { return a || (a = f.currItem), a.initialZoomLevel; },
+	      Ta = function(a) { return a || (a = f.currItem), a.w > 0 ? i.maxSpreadZoom : 1; },
+	      Ua = function(a, b, c, d) { return d === f.currItem.initialZoomLevel ? (c[a] = f.currItem.initialPosition[a], !0) : (c[a] = Ka(a, d), c[a] > b.min[a] ? (c[a] = b.min[a], !0) : c[a] < b.max[a] ? (c[a] = b.max[a], !0) : !1); },
+	      Va = function() {
+	        if (E) { const b = N.perspective && !G; return u = 'translate' + (b ? '3d(' : '('), void (v = N.perspective ? ', 0px)' : ')'); }E = 'left', e.addClass(a, 'pswp--ie'), Ia = function(a, b) { b.left = a + 'px'; }, Ha = function(a) {
+	          let b = a.fitRatio > 1 ? 1 : a.fitRatio,
+	            c = a.container.style,
+	            d = b * a.w,
+	            e = b * a.h; c.width = d + 'px', c.height = e + 'px', c.left = a.initialPosition.x + 'px', c.top = a.initialPosition.y + 'px';
+	        }, Ga = function() {
+	          if (da) {
+	            let a = da,
+	              b = f.currItem,
+	              c = b.fitRatio > 1 ? 1 : b.fitRatio,
+	              d = c * b.w,
+	              e = c * b.h; a.width = d + 'px', a.height = e + 'px', a.left = oa.x + 'px', a.top = oa.y + 'px';
+	          }
+	        };
+	      },
+	      Wa = function(a) { let b = ''; i.escKey && a.keyCode === 27 ? b = 'close' : i.arrowKeys && (a.keyCode === 37 ? b = 'prev' : a.keyCode === 39 && (b = 'next')), b && (a.ctrlKey || a.altKey || a.shiftKey || a.metaKey || (a.preventDefault ? a.preventDefault() : a.returnValue = !1, f[b]())); },
+	      Xa = function(a) { a && (X || W || ea || S) && (a.preventDefault(), a.stopPropagation()); },
+	      Ya = function() { f.setScrollOffset(0, e.getScrollY()); },
+	      Za = {},
+	      $a = 0,
+	      _a = function(a) { Za[a] && (Za[a].raf && I(Za[a].raf), $a--, delete Za[a]); },
+	      ab = function(a) { Za[a] && _a(a), Za[a] || ($a++, Za[a] = {}); },
+	      bb = function() { for (const a in Za)Za.hasOwnProperty(a) && _a(a); },
+	      cb = function(a, b, c, d, e, f, g) {
+	        let h,
+	          i = Da(); ab(a); var j = function() { if (Za[a]) { if (h = Da() - i, h >= d) return _a(a), f(c), void (g && g()); f((c - b) * e(h / d) + b), Za[a].raf = H(j); } }; j();
+	      },
+	      db = { shout: Ca, listen: Ba, viewportSize: pa, options: i, isMainScrollAnimating() { return ea; }, getZoomLevel() { return s; }, getCurrentIndex() { return m; }, isDragging() { return U; }, isZooming() { return _; }, setScrollOffset(a, b) { ra.x = a, M = ra.y = b, Ca('updateScrollOffset', ra); }, applyZoomPan(a, b, c, d) { oa.x = b, oa.y = c, s = a, Ga(d); }, init() { if (!j && !k) { let c; f.framework = e, f.template = a, f.bg = e.getChildByClass(a, 'pswp__bg'), J = a.className, j = !0, N = e.detectFeatures(), H = N.raf, I = N.caf, E = N.transform, L = N.oldIE, f.scrollWrap = e.getChildByClass(a, 'pswp__scroll-wrap'), f.container = e.getChildByClass(f.scrollWrap, 'pswp__container'), n = f.container.style, f.itemHolders = y = [{ el: f.container.children[0], wrap: 0, index: -1 }, { el: f.container.children[1], wrap: 0, index: -1 }, { el: f.container.children[2], wrap: 0, index: -1 }], y[0].el.style.display = y[2].el.style.display = 'none', Va(), r = { resize: f.updateSize, scroll: Ya, keydown: Wa, click: Xa }; const d = N.isOldIOSPhone || N.isOldAndroid || N.isMobileOpera; for (N.animationName && N.transform && !d || (i.showAnimationDuration = i.hideAnimationDuration = 0), c = 0; c < va.length; c++)f['init' + va[c]](); if (b) { const g = f.ui = new b(f, e); g.init(); }Ca('firstUpdate'), m = m || i.index || 0, (isNaN(m) || m < 0 || m >= _b()) && (m = 0), f.currItem = $b(m), (N.isOldIOSPhone || N.isOldAndroid) && (ua = !1), a.setAttribute('aria-hidden', 'false'), i.modal && (ua ? a.style.position = 'fixed' : (a.style.position = 'absolute', a.style.top = e.getScrollY() + 'px')), void 0 === M && (Ca('initialLayout'), M = K = e.getScrollY()); let l = 'pswp--open '; for (i.mainClass && (l += i.mainClass + ' '), i.showHideOpacity && (l += 'pswp--animate_opacity '), l += G ? 'pswp--touch' : 'pswp--notouch', l += N.animationName ? ' pswp--css_animation' : '', l += N.svg ? ' pswp--svg' : '', e.addClass(a, l), f.updateSize(), o = -1, ta = null, c = 0; h > c; c++)Ia((c + o) * sa.x, y[c].el.style); L || e.bind(f.scrollWrap, q, f), Ba('initialZoomInEnd', function() { f.setContent(y[0], m - 1), f.setContent(y[2], m + 1), y[0].el.style.display = y[2].el.style.display = 'block', i.focus && a.focus(), Pa(); }), f.setContent(y[1], m), f.updateCurrItem(), Ca('afterInit'), ua || (w = setInterval(function() { $a || U || _ || s !== f.currItem.initialZoomLevel || f.updateSize(); }, 1e3)), e.addClass(a, 'pswp--visible'); } }, close() { j && (j = !1, k = !0, Ca('close'), Qa(), bc(f.currItem, null, !0, f.destroy)); }, destroy() { Ca('destroy'), Wb && clearTimeout(Wb), a.setAttribute('aria-hidden', 'true'), a.className = J, w && clearInterval(w), e.unbind(f.scrollWrap, q, f), e.unbind(window, 'scroll', f), yb(), bb(), Aa = null; }, panTo(a, b, c) { c || (a > ca.min.x ? a = ca.min.x : a < ca.max.x && (a = ca.max.x), b > ca.min.y ? b = ca.min.y : b < ca.max.y && (b = ca.max.y)), oa.x = a, oa.y = b, Ga(); }, handleEvent(a) { a = a || window.event, r[a.type] && r[a.type](a); }, goTo(a) { a = za(a); const b = a - m; ta = b, m = a, f.currItem = $b(m), qa -= b, Ja(sa.x * qa), bb(), ea = !1, f.updateCurrItem(); }, next() { f.goTo(m + 1); }, prev() { f.goTo(m - 1); }, updateCurrZoomItem(a) { if (a && Ca('beforeChange', 0), y[1].el.children.length) { const b = y[1].el.children[0]; da = e.hasClass(b, 'pswp__zoom-wrap') ? b.style : null; } else da = null; ca = f.currItem.bounds, t = s = f.currItem.initialZoomLevel, oa.x = ca.center.x, oa.y = ca.center.y, a && Ca('afterChange'); }, invalidateCurrItems() { x = !0; for (let a = 0; h > a; a++)y[a].item && (y[a].item.needsUpdate = !0); }, updateCurrItem(a) {
+	        if (ta !== 0) {
+	          let b,
+	            c = Math.abs(ta); if (!(a && c < 2)) { f.currItem = $b(m), xa = !1, Ca('beforeChange', ta), c >= h && (o += ta + (ta > 0 ? -h : h), c = h); for (let d = 0; c > d; d++)ta > 0 ? (b = y.shift(), y[h - 1] = b, o++, Ia((o + 2) * sa.x, b.el.style), f.setContent(b, m - c + d + 1 + 1)) : (b = y.pop(), y.unshift(b), o--, Ia(o * sa.x, b.el.style), f.setContent(b, m + c - d - 1 - 1)); if (da && Math.abs(ta) === 1) { const e = $b(z); e.initialZoomLevel !== s && (hc(e, pa), lc(e), Ha(e)); }ta = 0, f.updateCurrZoomItem(), z = m, Ca('afterChange'); }
+	        }
+	      }, updateSize(b) { if (!ua && i.modal) { const c = e.getScrollY(); if (M !== c && (a.style.top = c + 'px', M = c), !b && wa.x === window.innerWidth && wa.y === window.innerHeight) return; wa.x = window.innerWidth, wa.y = window.innerHeight, a.style.height = wa.y + 'px'; } if (pa.x = f.scrollWrap.clientWidth, pa.y = f.scrollWrap.clientHeight, Ya(), sa.x = pa.x + Math.round(pa.x * i.spacing), sa.y = pa.y, Ja(sa.x * qa), Ca('beforeResize'), void 0 !== o) { for (var d, g, j, k = 0; h > k; k++)d = y[k], Ia((k + o) * sa.x, d.el.style), j = m + k - 1, i.loop && _b() > 2 && (j = za(j)), g = $b(j), g && (x || g.needsUpdate || !g.bounds) ? (f.cleanSlide(g), f.setContent(d, j), k === 1 && (f.currItem = g, f.updateCurrZoomItem(!0)), g.needsUpdate = !1) : d.index === -1 && j >= 0 && f.setContent(d, j), g && g.container && (hc(g, pa), lc(g), Ha(g)); x = !1; }t = s = f.currItem.initialZoomLevel, ca = f.currItem.bounds, ca && (oa.x = ca.center.x, oa.y = ca.center.y, Ga(!0)), Ca('resize'); }, zoomTo(a, b, c, d, f) {
+	        b && (t = s, tb.x = Math.abs(b.x) - oa.x, tb.y = Math.abs(b.y) - oa.y, La(na, oa)); let g = Ra(a, !1),
+	          h = {}; Ua('x', g, h, a), Ua('y', g, h, a); let i = s,
+	          j = { x: oa.x, y: oa.y }; Ma(h); const k = function(b) { b === 1 ? (s = a, oa.x = h.x, oa.y = h.y) : (s = (a - i) * b + i, oa.x = (h.x - j.x) * b + j.x, oa.y = (h.y - j.y) * b + j.y), f && f(b), Ga(b === 1); }; c ? cb('customZoomTo', 0, 1, c, d || e.easing.sine.inOut, k) : k(1);
+	      } },
+	      eb = 30,
+	      fb = 10,
+	      gb = {},
+	      hb = {},
+	      ib = {},
+	      jb = {},
+	      kb = {},
+	      lb = [],
+	      mb = {},
+	      nb = [],
+	      ob = {},
+	      pb = 0,
+	      qb = la(),
+	      rb = 0,
+	      sb = la(),
+	      tb = la(),
+	      ub = la(),
+	      vb = function(a, b) { return a.x === b.x && a.y === b.y; },
+	      wb = function(a, b) { return Math.abs(a.x - b.x) < g && Math.abs(a.y - b.y) < g; },
+	      xb = function(a, b) { return ob.x = Math.abs(a.x - b.x), ob.y = Math.abs(a.y - b.y), Math.sqrt(ob.x * ob.x + ob.y * ob.y); },
+	      yb = function() { Y && (I(Y), Y = null); },
+	      zb = function() { U && (Y = H(zb), Pb()); },
+	      Ab = function() { return !(i.scaleMode === 'fit' && s === f.currItem.initialZoomLevel); },
+	      Bb = function(a, b) { return a && a !== document ? a.getAttribute('class') && a.getAttribute('class').indexOf('pswp__scroll-wrap') > -1 ? !1 : b(a) ? a : Bb(a.parentNode, b) : !1; },
+	      Cb = {},
+	      Db = function(a, b) { return Cb.prevent = !Bb(a.target, i.isClickableElement), Ca('preventDragEvent', a, b, Cb), Cb.prevent; },
+	      Eb = function(a, b) { return b.x = a.pageX, b.y = a.pageY, b.id = a.identifier, b; },
+	      Fb = function(a, b, c) { c.x = 0.5 * (a.x + b.x), c.y = 0.5 * (a.y + b.y); },
+	      Gb = function(a, b, c) { if (a - P > 50) { const d = nb.length > 2 ? nb.shift() : {}; d.x = b, d.y = c, nb.push(d), P = a; } },
+	      Hb = function() { const a = oa.y - f.currItem.initialPosition.y; return 1 - Math.abs(a / (pa.y / 2)); },
+	      Ib = {},
+	      Jb = {},
+	      Kb = [],
+	      Lb = function(a) { for (;Kb.length > 0;)Kb.pop(); return F ? (ka = 0, lb.forEach(function(a) { ka === 0 ? Kb[0] = a : ka === 1 && (Kb[1] = a), ka++; })) : a.type.indexOf('touch') > -1 ? a.touches && a.touches.length > 0 && (Kb[0] = Eb(a.touches[0], Ib), a.touches.length > 1 && (Kb[1] = Eb(a.touches[1], Jb))) : (Ib.x = a.pageX, Ib.y = a.pageY, Ib.id = '', Kb[0] = Ib), Kb; },
+	      Mb = function(a, b) {
+	        let c,
+	          d,
+	          e,
+	          g,
+	          h = 0,
+	          j = oa[a] + b[a],
+	          k = b[a] > 0,
+	          l = sb.x + b.x,
+	          m = sb.x - mb.x; return c = j > ca.min[a] || j < ca.max[a] ? i.panEndFriction : 1, j = oa[a] + b[a] * c, !i.allowPanToNext && s !== f.currItem.initialZoomLevel || (da ? fa !== 'h' || a !== 'x' || W || (k ? (j > ca.min[a] && (c = i.panEndFriction, h = ca.min[a] - j, d = ca.min[a] - na[a]), (d <= 0 || m < 0) && _b() > 1 ? (g = l, m < 0 && l > mb.x && (g = mb.x)) : ca.min.x !== ca.max.x && (e = j)) : (j < ca.max[a] && (c = i.panEndFriction, h = j - ca.max[a], d = na[a] - ca.max[a]), (d <= 0 || m > 0) && _b() > 1 ? (g = l, m > 0 && l < mb.x && (g = mb.x)) : ca.min.x !== ca.max.x && (e = j))) : g = l, a !== 'x') ? void (ea || Z || s > f.currItem.fitRatio && (oa[a] += b[a] * c)) : (void 0 !== g && (Ja(g, !0), Z = g === mb.x ? !1 : !0), ca.min.x !== ca.max.x && (void 0 !== e ? oa.x = e : Z || (oa.x += b.x * c)), void 0 !== g);
+	      },
+	      Nb = function(a) {
+	        if (!(a.type === 'mousedown' && a.button > 0)) {
+	          if (Zb) return void a.preventDefault(); if (!T || a.type !== 'mousedown') {
+	            if (Db(a, !0) && a.preventDefault(), Ca('pointerDown'), F) { let b = e.arraySearch(lb, a.pointerId, 'id'); b < 0 && (b = lb.length), lb[b] = { x: a.pageX, y: a.pageY, id: a.pointerId }; } let c = Lb(a),
+	              d = c.length; $ = null, bb(), U && d !== 1 || (U = ga = !0, e.bind(window, p, f), R = ja = ha = S = Z = X = V = W = !1, fa = null, Ca('firstTouchStart', c), La(na, oa), ma.x = ma.y = 0, La(jb, c[0]), La(kb, jb), mb.x = sa.x * qa, nb = [{ x: jb.x, y: jb.y }], P = O = Da(), Ra(s, !0), yb(), zb()), !_ && d > 1 && !ea && !Z && (t = s, W = !1, _ = V = !0, ma.y = ma.x = 0, La(na, oa), La(gb, c[0]), La(hb, c[1]), Fb(gb, hb, ub), tb.x = Math.abs(ub.x) - oa.x, tb.y = Math.abs(ub.y) - oa.y, aa = ba = xb(gb, hb));
+	          }
+	        }
+	      },
+	      Ob = function(a) { if (a.preventDefault(), F) { const b = e.arraySearch(lb, a.pointerId, 'id'); if (b > -1) { const c = lb[b]; c.x = a.pageX, c.y = a.pageY; } } if (U) { const d = Lb(a); if (fa || X || _)$ = d; else if (sb.x !== sa.x * qa)fa = 'h'; else { const f = Math.abs(d[0].x - jb.x) - Math.abs(d[0].y - jb.y); Math.abs(f) >= fb && (fa = f > 0 ? 'h' : 'v', $ = d); } } },
+	      Pb = function() {
+	        if ($) {
+	          const a = $.length; if (a !== 0) {
+	            if (La(gb, $[0]), ib.x = gb.x - jb.x, ib.y = gb.y - jb.y, _ && a > 1) {
+	              if (jb.x = gb.x, jb.y = gb.y, !ib.x && !ib.y && vb($[1], hb)) return; La(hb, $[1]), W || (W = !0, Ca('zoomGestureStarted')); let b = xb(gb, hb),
+	                c = Ub(b); c > f.currItem.initialZoomLevel + f.currItem.initialZoomLevel / 15 && (ja = !0); let d = 1,
+	                e = Sa(),
+	                g = Ta(); if (e > c) {
+	                if (i.pinchToClose && !ja && t <= f.currItem.initialZoomLevel) {
+	                  let h = e - c,
+	                    j = 1 - h / (e / 1.2); Ea(j), Ca('onPinchClose', j), ha = !0;
+	                } else d = (e - c) / e, d > 1 && (d = 1), c = e - d * (e / 3);
+	              } else c > g && (d = (c - g) / (6 * e), d > 1 && (d = 1), c = g + d * e); d < 0 && (d = 0), aa = b, Fb(gb, hb, qb), ma.x += qb.x - ub.x, ma.y += qb.y - ub.y, La(ub, qb), oa.x = Ka('x', c), oa.y = Ka('y', c), R = c > s, s = c, Ga();
+	            } else { if (!fa) return; if (ga && (ga = !1, Math.abs(ib.x) >= fb && (ib.x -= $[0].x - kb.x), Math.abs(ib.y) >= fb && (ib.y -= $[0].y - kb.y)), jb.x = gb.x, jb.y = gb.y, ib.x === 0 && ib.y === 0) return; if (fa === 'v' && i.closeOnVerticalDrag && !Ab()) { ma.y += ib.y, oa.y += ib.y; const k = Hb(); return S = !0, Ca('onVerticalDrag', k), Ea(k), void Ga(); }Gb(Da(), gb.x, gb.y), X = !0, ca = f.currItem.bounds; const l = Mb('x', ib); l || (Mb('y', ib), Ma(oa), Ga()); }
+	          }
+	        }
+	      },
+	      Qb = function(a) {
+	        if (N.isOldAndroid) { if (T && a.type === 'mouseup') return; a.type.indexOf('touch') > -1 && (clearTimeout(T), T = setTimeout(function() { T = 0; }, 600)); }Ca('pointerUp'), Db(a, !1) && a.preventDefault(); let b; if (F) { const c = e.arraySearch(lb, a.pointerId, 'id'); if (c > -1) if (b = lb.splice(c, 1)[0], navigator.pointerEnabled)b.type = a.pointerType || 'mouse'; else { const d = { 4: 'mouse', 2: 'touch', 3: 'pen' }; b.type = d[a.pointerType], b.type || (b.type = a.pointerType || 'mouse'); } } let g,
+	          h = Lb(a),
+	          j = h.length; if (a.type === 'mouseup' && (j = 0), j === 2) return $ = null, !0; j === 1 && La(kb, h[0]), j !== 0 || fa || ea || (b || (a.type === 'mouseup' ? b = { x: a.pageX, y: a.pageY, type: 'mouse' } : a.changedTouches && a.changedTouches[0] && (b = { x: a.changedTouches[0].pageX, y: a.changedTouches[0].pageY, type: 'touch' })), Ca('touchRelease', a, b)); let k = -1; if (j === 0 && (U = !1, e.unbind(window, p, f), yb(), _ ? k = 0 : rb !== -1 && (k = Da() - rb)), rb = j === 1 ? Da() : -1, g = k !== -1 && k < 150 ? 'zoom' : 'swipe', _ && j < 2 && (_ = !1, j === 1 && (g = 'zoomPointerUp'), Ca('zoomGestureEnded')), $ = null, X || W || ea || S) {
+	          if (bb(), Q || (Q = Rb()), Q.calculateSwipeSpeed('x'), S) {
+	            const l = Hb(); if (l < i.verticalDragRange)f.close(); else {
+	              let m = oa.y,
+	                n = ia; cb('verticalDrag', 0, 1, 300, e.easing.cubic.out, function(a) { oa.y = (f.currItem.initialPosition.y - m) * a + m, Ea((1 - n) * a + n), Ga(); }), Ca('onVerticalDrag', 1);
+	            }
+	          } else { if ((Z || ea) && j === 0) { const o = Tb(g, Q); if (o) return; g = 'zoomPointerUp'; } if (!ea) return g !== 'swipe' ? void Vb() : void (!Z && s > f.currItem.fitRatio && Sb(Q)); }
+	        }
+	      },
+	      Rb = function() {
+	        var a,
+	          b,
+	          c = { lastFlickOffset: {}, lastFlickDist: {}, lastFlickSpeed: {}, slowDownRatio: {}, slowDownRatioReverse: {}, speedDecelerationRatio: {}, speedDecelerationRatioAbs: {}, distanceOffset: {}, backAnimDestination: {}, backAnimStarted: {}, calculateSwipeSpeed(d) { nb.length > 1 ? (a = Da() - P + 50, b = nb[nb.length - 2][d]) : (a = Da() - O, b = kb[d]), c.lastFlickOffset[d] = jb[d] - b, c.lastFlickDist[d] = Math.abs(c.lastFlickOffset[d]), c.lastFlickDist[d] > 20 ? c.lastFlickSpeed[d] = c.lastFlickOffset[d] / a : c.lastFlickSpeed[d] = 0, Math.abs(c.lastFlickSpeed[d]) < 0.1 && (c.lastFlickSpeed[d] = 0), c.slowDownRatio[d] = 0.95, c.slowDownRatioReverse[d] = 1 - c.slowDownRatio[d], c.speedDecelerationRatio[d] = 1; }, calculateOverBoundsAnimOffset(a, b) { c.backAnimStarted[a] || (oa[a] > ca.min[a] ? c.backAnimDestination[a] = ca.min[a] : oa[a] < ca.max[a] && (c.backAnimDestination[a] = ca.max[a]), void 0 !== c.backAnimDestination[a] && (c.slowDownRatio[a] = 0.7, c.slowDownRatioReverse[a] = 1 - c.slowDownRatio[a], c.speedDecelerationRatioAbs[a] < 0.05 && (c.lastFlickSpeed[a] = 0, c.backAnimStarted[a] = !0, cb('bounceZoomPan' + a, oa[a], c.backAnimDestination[a], b || 300, e.easing.sine.out, function(b) { oa[a] = b, Ga(); })))); }, calculateAnimOffset(a) { c.backAnimStarted[a] || (c.speedDecelerationRatio[a] = c.speedDecelerationRatio[a] * (c.slowDownRatio[a] + c.slowDownRatioReverse[a] - c.slowDownRatioReverse[a] * c.timeDiff / 10), c.speedDecelerationRatioAbs[a] = Math.abs(c.lastFlickSpeed[a] * c.speedDecelerationRatio[a]), c.distanceOffset[a] = c.lastFlickSpeed[a] * c.speedDecelerationRatio[a] * c.timeDiff, oa[a] += c.distanceOffset[a]); }, panAnimLoop() { return Za.zoomPan && (Za.zoomPan.raf = H(c.panAnimLoop), c.now = Da(), c.timeDiff = c.now - c.lastNow, c.lastNow = c.now, c.calculateAnimOffset('x'), c.calculateAnimOffset('y'), Ga(), c.calculateOverBoundsAnimOffset('x'), c.calculateOverBoundsAnimOffset('y'), c.speedDecelerationRatioAbs.x < 0.05 && c.speedDecelerationRatioAbs.y < 0.05) ? (oa.x = Math.round(oa.x), oa.y = Math.round(oa.y), Ga(), void _a('zoomPan')) : void 0; } }; return c;
+	      },
+	      Sb = function(a) { return a.calculateSwipeSpeed('y'), ca = f.currItem.bounds, a.backAnimDestination = {}, a.backAnimStarted = {}, Math.abs(a.lastFlickSpeed.x) <= 0.05 && Math.abs(a.lastFlickSpeed.y) <= 0.05 ? (a.speedDecelerationRatioAbs.x = a.speedDecelerationRatioAbs.y = 0, a.calculateOverBoundsAnimOffset('x'), a.calculateOverBoundsAnimOffset('y'), !0) : (ab('zoomPan'), a.lastNow = Da(), void a.panAnimLoop()); },
+	      Tb = function(a, b) {
+	        let c; ea || (pb = m); let d; if (a === 'swipe') {
+	          let g = jb.x - kb.x,
+	            h = b.lastFlickDist.x < 10; g > eb && (h || b.lastFlickOffset.x > 20) ? d = -1 : -eb > g && (h || b.lastFlickOffset.x < -20) && (d = 1);
+	        } let j; d && (m += d, m < 0 ? (m = i.loop ? _b() - 1 : 0, j = !0) : m >= _b() && (m = i.loop ? 0 : _b() - 1, j = !0), (!j || i.loop) && (ta += d, qa -= d, c = !0)); let k,
+	          l = sa.x * qa,
+	          n = Math.abs(l - sb.x); return c || l > sb.x == b.lastFlickSpeed.x > 0 ? (k = Math.abs(b.lastFlickSpeed.x) > 0 ? n / Math.abs(b.lastFlickSpeed.x) : 333, k = Math.min(k, 400), k = Math.max(k, 250)) : k = 333, pb === m && (c = !1), ea = !0, Ca('mainScrollAnimStart'), cb('mainScroll', sb.x, l, k, e.easing.cubic.out, Ja, function() { bb(), ea = !1, pb = -1, (c || pb !== m) && f.updateCurrItem(), Ca('mainScrollAnimComplete'); }), c && f.updateCurrItem(!0), c;
+	      },
+	      Ub = function(a) { return 1 / ba * a * t; },
+	      Vb = function() {
+	        let a = s,
+	          b = Sa(),
+	          c = Ta(); b > s ? a = b : s > c && (a = c); let d,
+	          g = 1,
+	          h = ia; return ha && !R && !ja && b > s ? (f.close(), !0) : (ha && (d = function(a) { Ea((g - h) * a + h); }), f.zoomTo(a, 0, 200, e.easing.cubic.out, d), !0);
+	      }; ya('Gestures', { publicMethods: { initGestures() { const a = function(a, b, c, d, e) { A = a + b, B = a + c, C = a + d, D = e ? a + e : ''; }; F = N.pointerEvent, F && N.touch && (N.touch = !1), F ? navigator.pointerEnabled ? a('pointer', 'down', 'move', 'up', 'cancel') : a('MSPointer', 'Down', 'Move', 'Up', 'Cancel') : N.touch ? (a('touch', 'start', 'move', 'end', 'cancel'), G = !0) : a('mouse', 'down', 'move', 'up'), p = B + ' ' + C + ' ' + D, q = A, F && !G && (G = navigator.maxTouchPoints > 1 || navigator.msMaxTouchPoints > 1), f.likelyTouchDevice = G, r[A] = Nb, r[B] = Ob, r[C] = Qb, D && (r[D] = r[C]), N.touch && (q += ' mousedown', p += ' mousemove mouseup', r.mousedown = r[A], r.mousemove = r[B], r.mouseup = r[C]), G || (i.allowPanToNext = !1); } } }); var Wb,
+	      Xb,
+	      Yb,
+	      Zb,
+	      $b,
+	      _b,
+	      ac,
+	      bc = function(b, c, d, g) {
+	        Wb && clearTimeout(Wb), Zb = !0, Yb = !0; let h; b.initialLayout ? (h = b.initialLayout, b.initialLayout = null) : h = i.getThumbBoundsFn && i.getThumbBoundsFn(m); let j = d ? i.hideAnimationDuration : i.showAnimationDuration,
+	          k = function() { _a('initialZoom'), d ? (f.template.removeAttribute('style'), f.bg.removeAttribute('style')) : (Ea(1), c && (c.style.display = 'block'), e.addClass(a, 'pswp--animated-in'), Ca('initialZoom' + (d ? 'OutEnd' : 'InEnd'))), g && g(), Zb = !1; }; if (!j || !h || void 0 === h.x) return Ca('initialZoom' + (d ? 'Out' : 'In')), s = b.initialZoomLevel, La(oa, b.initialPosition), Ga(), a.style.opacity = d ? 0 : 1, Ea(1), void (j ? setTimeout(function() { k(); }, j) : k()); const n = function() {
+	          let c = l,
+	            g = !f.currItem.src || f.currItem.loadError || i.showHideOpacity; b.miniImg && (b.miniImg.style.webkitBackfaceVisibility = 'hidden'), d || (s = h.w / b.w, oa.x = h.x, oa.y = h.y - K, f[g ? 'template' : 'bg'].style.opacity = 0.001, Ga()), ab('initialZoom'), d && !c && e.removeClass(a, 'pswp--animated-in'), g && (d ? e[(c ? 'remove' : 'add') + 'Class'](a, 'pswp--animate_opacity') : setTimeout(function() { e.addClass(a, 'pswp--animate_opacity'); }, 30)), Wb = setTimeout(function() {
+	            if (Ca('initialZoom' + (d ? 'Out' : 'In')), d) {
+	              let f = h.w / b.w,
+	                i = { x: oa.x, y: oa.y },
+	                l = s,
+	                m = ia,
+	                n = function(b) { b === 1 ? (s = f, oa.x = h.x, oa.y = h.y - M) : (s = (f - l) * b + l, oa.x = (h.x - i.x) * b + i.x, oa.y = (h.y - M - i.y) * b + i.y), Ga(), g ? a.style.opacity = 1 - b : Ea(m - b * m); }; c ? cb('initialZoom', 0, 1, j, e.easing.cubic.out, n, k) : (n(1), Wb = setTimeout(k, j + 20));
+	            } else s = b.initialZoomLevel, La(oa, b.initialPosition), Ga(), Ea(1), g ? a.style.opacity = 1 : Ea(1), Wb = setTimeout(k, j + 20);
+	          }, d ? 25 : 90);
+	        }; n();
+	      },
+	      cc = {},
+	      dc = [],
+	      ec = { index: 0, errorMsg: '<div class="pswp__error-msg"><a href="%url%" target="_blank">The image</a> could not be loaded.</div>', forceProgressiveLoading: !1, preload: [ 1, 1 ], getNumItemsFn() { return Xb.length; } },
+	      fc = function() { return { center: { x: 0, y: 0 }, max: { x: 0, y: 0 }, min: { x: 0, y: 0 } }; },
+	      gc = function(a, b, c) { const d = a.bounds; d.center.x = Math.round((cc.x - b) / 2), d.center.y = Math.round((cc.y - c) / 2) + a.vGap.top, d.max.x = b > cc.x ? Math.round(cc.x - b) : d.center.x, d.max.y = c > cc.y ? Math.round(cc.y - c) + a.vGap.top : d.center.y, d.min.x = b > cc.x ? 0 : d.center.x, d.min.y = c > cc.y ? a.vGap.top : d.center.y; },
+	      hc = function(a, b, c) {
+	        if (a.src && !a.loadError) {
+	          const d = !c; if (d && (a.vGap || (a.vGap = { top: 0, bottom: 0 }), Ca('parseVerticalMargin', a)), cc.x = b.x, cc.y = b.y - a.vGap.top - a.vGap.bottom, d) {
+	            let e = cc.x / a.w,
+	              f = cc.y / a.h; a.fitRatio = f > e ? e : f; const g = i.scaleMode; g === 'orig' ? c = 1 : g === 'fit' && (c = a.fitRatio), c > 1 && (c = 1), a.initialZoomLevel = c, a.bounds || (a.bounds = fc());
+	          } if (!c) return; return gc(a, a.w * c, a.h * c), d && c === a.initialZoomLevel && (a.initialPosition = a.bounds.center), a.bounds;
+	        } return a.w = a.h = 0, a.initialZoomLevel = a.fitRatio = 1, a.bounds = fc(), a.initialPosition = a.bounds.center, a.bounds;
+	      },
+	      ic = function(a, b, c, d, e, g) { b.loadError || d && (b.imageAppended = !0, lc(b, d, b === f.currItem && xa), c.appendChild(d), g && setTimeout(function() { b && b.loaded && b.placeholder && (b.placeholder.style.display = 'none', b.placeholder = null); }, 500)); },
+	      jc = function(a) {
+	        a.loading = !0, a.loaded = !1; let b = a.img = e.createEl('pswp__img', 'img'),
+	          c = function() { a.loading = !1, a.loaded = !0, a.loadComplete ? a.loadComplete(a) : a.img = null, b.onload = b.onerror = null, b = null; }; return b.onload = c, b.onerror = function() { a.loadError = !0, c(); }, b.src = a.src, b;
+	      },
+	      kc = function(a, b) { return a.src && a.loadError && a.container ? (b && (a.container.innerHTML = ''), a.container.innerHTML = i.errorMsg.replace('%url%', a.src), !0) : void 0; },
+	      lc = function(a, b, c) {
+	        if (a.src) {
+	          b || (b = a.container.lastChild); let d = c ? a.w : Math.round(a.w * a.fitRatio),
+	            e = c ? a.h : Math.round(a.h * a.fitRatio); a.placeholder && !a.loaded && (a.placeholder.style.width = d + 'px', a.placeholder.style.height = e + 'px'), b.style.width = d + 'px', b.style.height = e + 'px';
+	        }
+	      },
+	      mc = function() { if (dc.length) { for (var a, b = 0; b < dc.length; b++)a = dc[b], a.holder.index === a.index && ic(a.index, a.item, a.baseDiv, a.img, !1, a.clearPlaceholder); dc = []; } }; ya('Controller', { publicMethods: { lazyLoadItem(a) { a = za(a); const b = $b(a); b && (!b.loaded && !b.loading || x) && (Ca('gettingData', a, b), b.src && jc(b)); }, initController() {
+	      e.extend(i, ec, !0), f.items = Xb = c, $b = f.getItemAt, _b = i.getNumItemsFn, ac = i.loop, _b() < 3 && (i.loop = !1), Ba('beforeChange', function(a) {
+	        let b,
+	          c = i.preload,
+	          d = a === null ? !0 : a >= 0,
+	          e = Math.min(c[0], _b()),
+	          g = Math.min(c[1], _b()); for (b = 1; (d ? g : e) >= b; b++)f.lazyLoadItem(m + b); for (b = 1; (d ? e : g) >= b; b++)f.lazyLoadItem(m - b);
+	      }), Ba('initialLayout', function() { f.currItem.initialLayout = i.getThumbBoundsFn && i.getThumbBoundsFn(m); }), Ba('mainScrollAnimComplete', mc), Ba('initialZoomInEnd', mc), Ba('destroy', function() { for (var a, b = 0; b < Xb.length; b++)a = Xb[b], a.container && (a.container = null), a.placeholder && (a.placeholder = null), a.img && (a.img = null), a.preloader && (a.preloader = null), a.loadError && (a.loaded = a.loadError = !1); dc = null; });
+	    }, getItemAt(a) { return a >= 0 && void 0 !== Xb[a] ? Xb[a] : !1; }, allowProgressiveImg() { return i.forceProgressiveLoading || !G || i.mouseUsed || screen.width > 1200; }, setContent(a, b) {
+	      i.loop && (b = za(b)); const c = f.getItemAt(a.index); c && (c.container = null); let d,
+	        g = f.getItemAt(b); if (!g) return void (a.el.innerHTML = ''); Ca('gettingData', b, g), a.index = b, a.item = g; const h = g.container = e.createEl('pswp__zoom-wrap'); if (!g.src && g.html && (g.html.tagName ? h.appendChild(g.html) : h.innerHTML = g.html), kc(g), hc(g, pa), !g.src || g.loadError || g.loaded)g.src && !g.loadError && (d = e.createEl('pswp__img', 'img'), d.style.opacity = 1, d.src = g.src, lc(g, d), ic(b, g, h, d, !0)); else { if (g.loadComplete = function(c) { if (j) { if (a && a.index === b) { if (kc(c, !0)) return c.loadComplete = c.img = null, hc(c, pa), Ha(c), void (a.index === m && f.updateCurrZoomItem()); c.imageAppended ? !Zb && c.placeholder && (c.placeholder.style.display = 'none', c.placeholder = null) : N.transform && (ea || Zb) ? dc.push({ item: c, baseDiv: h, img: c.img, index: b, holder: a, clearPlaceholder: !0 }) : ic(b, c, h, c.img, ea || Zb, !0); }c.loadComplete = null, c.img = null, Ca('imageLoadComplete', b, c); } }, e.features.transform) { let k = 'pswp__img pswp__img--placeholder'; k += g.msrc ? '' : ' pswp__img--placeholder--blank'; const l = e.createEl(k, g.msrc ? 'img' : ''); g.msrc && (l.src = g.msrc), lc(g, l), h.appendChild(l), g.placeholder = l; }g.loading || jc(g), f.allowProgressiveImg() && (!Yb && N.transform ? dc.push({ item: g, baseDiv: h, img: g.img, index: b, holder: a }) : ic(b, g, h, g.img, !0, !0)); }Yb || b !== m ? Ha(g) : (da = h.style, bc(g, d || g.img)), a.el.innerHTML = '', a.el.appendChild(h);
+	    }, cleanSlide(a) { a.img && (a.img.onload = a.img.onerror = null), a.loaded = a.loading = a.img = a.imageAppended = !1; } } }); let nc,
+	      oc = {},
+	      pc = function(a, b, c) {
+	        let d = document.createEvent('CustomEvent'),
+	          e = { origEvent: a, target: a.target, releasePoint: b, pointerType: c || 'touch' }; d.initCustomEvent('pswpTap', !0, !0, e), a.target.dispatchEvent(d);
+	      }; ya('Tap', { publicMethods: { initTap() { Ba('firstTouchStart', f.onTapStart), Ba('touchRelease', f.onTapRelease), Ba('destroy', function() { oc = {}, nc = null; }); }, onTapStart(a) { a.length > 1 && (clearTimeout(nc), nc = null); }, onTapRelease(a, b) { if (b && !X && !V && !$a) { const c = b; if (nc && (clearTimeout(nc), nc = null, wb(c, oc))) return void Ca('doubleTap', c); if (b.type === 'mouse') return void pc(a, b, 'mouse'); const d = a.target.tagName.toUpperCase(); if (d === 'BUTTON' || e.hasClass(a.target, 'pswp__single-tap')) return void pc(a, b); La(oc, c), nc = setTimeout(function() { pc(a, b), nc = null; }, 300); } } } }); let qc; ya('DesktopZoom', { publicMethods: { initDesktopZoom() { L || (G ? Ba('mouseUsed', function() { f.setupDesktopZoom(); }) : f.setupDesktopZoom(!0)); }, setupDesktopZoom(b) {
+	      qc = {}; const c = 'wheel mousewheel DOMMouseScroll'; Ba('bindEvents', function() { e.bind(a, c, f.handleMouseWheel); }), Ba('unbindEvents', function() { qc && e.unbind(a, c, f.handleMouseWheel); }), f.mouseZoomedIn = !1; var d,
+	        g = function() { f.mouseZoomedIn && (e.removeClass(a, 'pswp--zoomed-in'), f.mouseZoomedIn = !1), s < 1 ? e.addClass(a, 'pswp--zoom-allowed') : e.removeClass(a, 'pswp--zoom-allowed'), h(); },
+	        h = function() { d && (e.removeClass(a, 'pswp--dragging'), d = !1); }; Ba('resize', g), Ba('afterChange', g), Ba('pointerDown', function() { f.mouseZoomedIn && (d = !0, e.addClass(a, 'pswp--dragging')); }), Ba('pointerUp', h), b || g();
+	    }, handleMouseWheel(a) {
+	      if (s <= f.currItem.fitRatio) return i.modal && (!i.closeOnScroll || $a || U ? a.preventDefault() : E && Math.abs(a.deltaY) > 2 && (l = !0, f.close())), !0; if (a.stopPropagation(), qc.x = 0, 'deltaX' in a)a.deltaMode === 1 ? (qc.x = 18 * a.deltaX, qc.y = 18 * a.deltaY) : (qc.x = a.deltaX, qc.y = a.deltaY); else if ('wheelDelta' in a)a.wheelDeltaX && (qc.x = -0.16 * a.wheelDeltaX), a.wheelDeltaY ? qc.y = -0.16 * a.wheelDeltaY : qc.y = -0.16 * a.wheelDelta; else { if (!('detail' in a)) return; qc.y = a.detail; }Ra(s, !0); let b = oa.x - qc.x,
+	        c = oa.y - qc.y; (i.modal || b <= ca.min.x && b >= ca.max.x && c <= ca.min.y && c >= ca.max.y) && a.preventDefault(), f.panTo(b, c);
+	    }, toggleDesktopZoom(b) {
+	      b = b || { x: pa.x / 2 + ra.x, y: pa.y / 2 + ra.y }; let c = i.getDoubleTapZoom(!0, f.currItem),
+	        d = s === c; f.mouseZoomedIn = !d, f.zoomTo(d ? f.currItem.initialZoomLevel : c, b, 333), e[(d ? 'remove' : 'add') + 'Class'](a, 'pswp--zoomed-in');
+	    } } }); var rc,
+	      sc,
+	      tc,
+	      uc,
+	      vc,
+	      wc,
+	      xc,
+	      yc,
+	      zc,
+	      Ac,
+	      Bc,
+	      Cc,
+	      Dc = { history: !0, galleryUID: 1 },
+	      Ec = function() { return Bc.hash.substring(1); },
+	      Fc = function() { rc && clearTimeout(rc), tc && clearTimeout(tc); },
+	      Gc = function() {
+	        let a = Ec(),
+	          b = {}; if (a.length < 5) return b; let c,
+	          d = a.split('&'); for (c = 0; c < d.length; c++) if (d[c]) { const e = d[c].split('='); e.length < 2 || (b[e[0]] = e[1]); } if (i.galleryPIDs) { const f = b.pid; for (b.pid = 0, c = 0; c < Xb.length; c++) if (Xb[c].pid === f) { b.pid = c; break; } } else b.pid = parseInt(b.pid, 10) - 1; return b.pid < 0 && (b.pid = 0), b;
+	      },
+	      Hc = function() {
+	        if (tc && clearTimeout(tc), $a || U) return void (tc = setTimeout(Hc, 500)); uc ? clearTimeout(sc) : uc = !0; let a = m + 1,
+	          b = $b(m); b.hasOwnProperty('pid') && (a = b.pid); const c = xc + '&gid=' + i.galleryUID + '&pid=' + a; yc || Bc.hash.indexOf(c) === -1 && (Ac = !0); const d = Bc.href.split('#')[0] + '#' + c; Cc ? '#' + c !== window.location.hash && history[yc ? 'replaceState' : 'pushState']('', document.title, d) : yc ? Bc.replace(d) : Bc.hash = c, yc = !0, sc = setTimeout(function() { uc = !1; }, 60);
+	      }; ya('History', { publicMethods: { initHistory() { if (e.extend(i, Dc, !0), i.history) { Bc = window.location, Ac = !1, zc = !1, yc = !1, xc = Ec(), Cc = 'pushState' in history, xc.indexOf('gid=') > -1 && (xc = xc.split('&gid=')[0], xc = xc.split('?gid=')[0]), Ba('afterChange', f.updateURL), Ba('unbindEvents', function() { e.unbind(window, 'hashchange', f.onHashChange); }); const a = function() { wc = !0, zc || (Ac ? history.back() : xc ? Bc.hash = xc : Cc ? history.pushState('', document.title, Bc.pathname + Bc.search) : Bc.hash = ''), Fc(); }; Ba('unbindEvents', function() { l && a(); }), Ba('destroy', function() { wc || a(); }), Ba('firstUpdate', function() { m = Gc().pid; }); const b = xc.indexOf('pid='); b > -1 && (xc = xc.substring(0, b), xc.slice(-1) === '&' && (xc = xc.slice(0, -1))), setTimeout(function() { j && e.bind(window, 'hashchange', f.onHashChange); }, 40); } }, onHashChange() { return Ec() === xc ? (zc = !0, void f.close()) : void (uc || (vc = !0, f.goTo(Gc().pid), vc = !1)); }, updateURL() { Fc(), vc || (yc ? rc = setTimeout(Hc, 800) : Hc()); } } }), e.extend(f, db);
+	  }; return a;
+	});
 
-    /** */ },
-  /* 18 */
-  /** */ function(module, exports, __webpack_require__) {
 
-    let __WEBPACK_AMD_DEFINE_FACTORY__,
-      __WEBPACK_AMD_DEFINE_RESULT__;/* ! PhotoSwipe Default UI - 4.1.1 - 2015-12-24
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/* ! PhotoSwipe Default UI - 4.1.1 - 2015-12-24
 	* http://photoswipe.com
 	* Copyright (c) 2015 Dmitry Semenov; */
-    /**
+	/**
 	*
 	* UI on top of main sliding area (caption, arrows, close button, etc.).
 	* Built just using public methods/properties of PhotoSwipe.
 	*
 	*/
-    (function(root, factory) {
-      if (true) {
-        !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-      } else if (typeof exports === 'object') {
-        module.exports = factory();
-      } else {
-        root.PhotoSwipeUI_Default = factory();
-      }
-    })(this, function() {
+	(function(root, factory) {
+	  if (true) {
+	    !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	  } else if (typeof exports === 'object') {
+	    module.exports = factory();
+	  } else {
+	    root.PhotoSwipeUI_Default = factory();
+	  }
+	})(this, function() {
 
-      'use strict';
+	  'use strict';
 
 
-      const PhotoSwipeUI_Default =
+	  const PhotoSwipeUI_Default =
 	 function(pswp, framework) {
 
 	   const ui = this;
@@ -1601,36 +1630,35 @@
 
 
 	 };
-      return PhotoSwipeUI_Default;
+	  return PhotoSwipeUI_Default;
 
 
-    });
+	});
 
 
-    /** */ },
-  /* 19 */
-  /** */ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
 
-    /* WEBPACK VAR INJECTION */(function(global) {
-      module.exports = lazyload;
+	/* WEBPACK VAR INJECTION */(function(global) {module.exports = lazyload;
 
-      const inView = __webpack_require__(20);
-      const lazyAttrs = [ 'data-src' ];
+	const inView = __webpack_require__(20);
+	const lazyAttrs = [ 'data-src' ];
 
-      let isInit = false;
+	let isInit = false;
 
-      // Provide libs using getAttribute early to get the good src
-      // and not the fake data-src
-      // replaceGetAttribute('Image');
-      // replaceGetAttribute('IFrame');
+	// Provide libs using getAttribute early to get the good src
+	// and not the fake data-src
+	// replaceGetAttribute('Image');
+	// replaceGetAttribute('IFrame');
 
-      function registerLazyAttr(attr) {
+	function registerLazyAttr(attr) {
 	  if (indexOf.call(lazyAttrs, attr) === -1) {
 	    lazyAttrs.push(attr);
 	  }
-      }
+	}
 
-      function lazyload(opts) {
+	function lazyload(opts) {
 	  opts = merge({
 	    wrap: {},
 	    src: 'data-src',
@@ -1708,9 +1736,9 @@
 	    }
 	  }
 	  register(elt);
-      }
+	}
 
-      function replaceGetAttribute(elementName) {
+	function replaceGetAttribute(elementName) {
 	  const fullname = 'HTML' + elementName + 'Element';
 	  if (fullname in global === false) {
 	    return;
@@ -1734,9 +1762,9 @@
 	    // because we use getAttribute(opts.src)
 	    return original.call(this, name);
 	  };
-      }
+	}
 
-      function merge(defaults, opts) {
+	function merge(defaults, opts) {
 	  for (const name in defaults) {
 	    if (opts[name] === undefined) {
 	      opts[name] = defaults[name];
@@ -1744,115 +1772,26 @@
 	  }
 
 	  return opts;
-      }
+	}
 
-      // http://webreflection.blogspot.fr/2011/06/partial-polyfills.html
-      function indexOf(value) {
+	// http://webreflection.blogspot.fr/2011/06/partial-polyfills.html
+	function indexOf(value) {
 	  for (var i = this.length; i-- && this[i] !== value;) {}
 	  return i;
-      }
-      /* WEBPACK VAR INJECTION */ }.call(exports, (function() { return this; }())));
+	}
 
-    /** */ },
-  /* 20 */
-  /** */ function(module, exports, __webpack_require__) {
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
-    /* !
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*!
 	 * in-view 0.6.1 - Get notified when a DOM element enters or exits the viewport.
 	 * Copyright (c) 2016 Cam Wiegert <cam@camwiegert.com> - https://camwiegert.github.io/in-view
 	 * License: MIT
 	 */
-    !function(t, e) { true ? module.exports = e() : typeof define === 'function' && define.amd ? define([], e) : typeof exports === 'object' ? exports.inView = e() : t.inView = e(); }(this, function() {
-      return function(t) { function e(r) { if (n[r]) return n[r].exports; const i = n[r] = { exports: {}, id: r, loaded: !1 }; return t[r].call(i.exports, i, i.exports, e), i.loaded = !0, i.exports; } var n = {}; return e.m = t, e.c = n, e.p = '', e(0); }([ function(t, e, n) {
-        'use strict'; function r(t) { return t && t.__esModule ? t : { default: t }; } let i = n(2),
-          o = r(i); t.exports = o.default;
-      }, function(t, e) { function n(t) { const e = typeof t; return t != null && (e == 'object' || e == 'function'); }t.exports = n; }, function(t, e, n) {
-        'use strict'; function r(t) { return t && t.__esModule ? t : { default: t }; }Object.defineProperty(e, '__esModule', { value: !0 }); let i = n(9),
-          o = r(i),
-          u = n(3),
-          f = r(u),
-          s = n(4),
-          c = function() {
-            if (typeof window !== 'undefined') {
-              let t = 100,
-                e = [ 'scroll', 'resize', 'load' ],
-                n = { history: [] },
-                r = { offset: {}, threshold: 0, test: s.inViewport },
-                i = (0, o.default)(function() { n.history.forEach(function(t) { n[t].check(); }); }, t); e.forEach(function(t) { return addEventListener(t, i); }), window.MutationObserver && addEventListener('DOMContentLoaded', function() { new MutationObserver(i).observe(document.body, { attributes: !0, childList: !0, subtree: !0 }); }); const u = function(t) { if (typeof t === 'string') { const e = [].slice.call(document.querySelectorAll(t)); return n.history.indexOf(t) > -1 ? n[t].elements = e : (n[t] = (0, f.default)(e, r), n.history.push(t)), n[t]; } }; return u.offset = function(t) { if (void 0 === t) return r.offset; const e = function(t) { return typeof t === 'number'; }; return [ 'top', 'right', 'bottom', 'left' ].forEach(e(t) ? function(e) { return r.offset[e] = t; } : function(n) { return e(t[n]) ? r.offset[n] = t[n] : null; }), r.offset; }, u.threshold = function(t) { return typeof t === 'number' && t >= 0 && t <= 1 ? r.threshold = t : r.threshold; }, u.test = function(t) { return typeof t === 'function' ? r.test = t : r.test; }, u.is = function(t) { return r.test(t, r); }, u.offset(0), u;
-            }
-          }; e.default = c();
-      }, function(t, e) {
-        'use strict'; function n(t, e) { if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function'); }Object.defineProperty(e, '__esModule', { value: !0 }); let r = function() { function t(t, e) { for (let n = 0; n < e.length; n++) { const r = e[n]; r.enumerable = r.enumerable || !1, r.configurable = !0, 'value' in r && (r.writable = !0), Object.defineProperty(t, r.key, r); } } return function(e, n, r) { return n && t(e.prototype, n), r && t(e, r), e; }; }(),
-          i = function() {
-            function t(e, r) { n(this, t), this.options = r, this.elements = e, this.current = [], this.handlers = { enter: [], exit: [] }, this.singles = { enter: [], exit: [] }; } return r(t, [{ key: 'check', value() {
-              const t = this; return this.elements.forEach(function(e) {
-                let n = t.options.test(e, t.options),
-                  r = t.current.indexOf(e),
-                  i = r > -1,
-                  o = n && !i,
-                  u = !n && i; o && (t.current.push(e), t.emit('enter', e)), u && (t.current.splice(r, 1), t.emit('exit', e));
-              }), this;
-            } }, { key: 'on', value(t, e) { return this.handlers[t].push(e), this; } }, { key: 'once', value(t, e) { return this.singles[t].unshift(e), this; } }, { key: 'emit', value(t, e) { for (;this.singles[t].length;) this.singles[t].pop()(e); for (let n = this.handlers[t].length; --n > -1;) this.handlers[t][n](e); return this; } }]), t;
-          }(); e.default = function(t, e) { return new i(t, e); };
-      }, function(t, e) {
-        'use strict'; function n(t, e) {
-          let n = t.getBoundingClientRect(),
-            r = n.top,
-            i = n.right,
-            o = n.bottom,
-            u = n.left,
-            f = n.width,
-            s = n.height,
-            c = { t: o, r: window.innerWidth - u, b: window.innerHeight - r, l: i },
-            a = { x: e.threshold * f, y: e.threshold * s }; return c.t > e.offset.top + a.y && c.r > e.offset.right + a.x && c.b > e.offset.bottom + a.y && c.l > e.offset.left + a.x;
-        }Object.defineProperty(e, '__esModule', { value: !0 }), e.inViewport = n;
-      }, function(t, e) { (function(e) { const n = typeof e === 'object' && e && e.Object === Object && e; t.exports = n; }).call(e, function() { return this; }()); }, function(t, e, n) {
-        let r = n(5),
-          i = typeof self === 'object' && self && self.Object === Object && self,
-          o = r || i || Function('return this')(); t.exports = o;
-      }, function(t, e, n) {
-        function r(t, e, n) {
-          function r(e) {
-            let n = x,
-              r = m; return x = m = void 0, E = e, w = t.apply(r, n);
-          } function a(t) { return E = t, j = setTimeout(h, e), M ? r(t) : w; } function l(t) {
-            let n = t - O,
-              r = t - E,
-              i = e - n; return _ ? c(i, g - r) : i;
-          } function d(t) {
-            let n = t - O,
-              r = t - E; return void 0 === O || n >= e || n < 0 || _ && r >= g;
-          } function h() { const t = o(); return d(t) ? p(t) : void (j = setTimeout(h, l(t))); } function p(t) { return j = void 0, T && x ? r(t) : (x = m = void 0, w); } function v() { void 0 !== j && clearTimeout(j), E = 0, x = O = m = j = void 0; } function y() { return void 0 === j ? w : p(o()); } function b() {
-            let t = o(),
-              n = d(t); if (x = arguments, m = this, O = t, n) { if (void 0 === j) return a(O); if (_) return j = setTimeout(h, e), r(O); } return void 0 === j && (j = setTimeout(h, e)), w;
-          } var x,
-            m,
-            g,
-            w,
-            j,
-            O,
-            E = 0,
-            M = !1,
-            _ = !1,
-            T = !0; if (typeof t !== 'function') throw new TypeError(f); return e = u(e) || 0, i(n) && (M = !!n.leading, _ = 'maxWait' in n, g = _ ? s(u(n.maxWait) || 0, e) : g, T = 'trailing' in n ? !!n.trailing : T), b.cancel = v, b.flush = y, b;
-        } var i = n(1),
-          o = n(8),
-          u = n(10),
-          f = 'Expected a function',
-          s = Math.max,
-          c = Math.min; t.exports = r;
-      }, function(t, e, n) {
-        let r = n(6),
-          i = function() { return r.Date.now(); }; t.exports = i;
-      }, function(t, e, n) {
-        function r(t, e, n) {
-          let r = !0,
-            f = !0; if (typeof t !== 'function') throw new TypeError(u); return o(n) && (r = 'leading' in n ? !!n.leading : r, f = 'trailing' in n ? !!n.trailing : f), i(t, e, { leading: r, maxWait: e, trailing: f });
-        } var i = n(7),
-          o = n(1),
-          u = 'Expected a function'; t.exports = r;
-      }, function(t, e) { function n(t) { return t; }t.exports = n; } ]);
-    });
+	!function(t,e){ true?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.inView=e():t.inView=e()}(this,function(){return function(t){function e(r){if(n[r])return n[r].exports;var i=n[r]={exports:{},id:r,loaded:!1};return t[r].call(i.exports,i,i.exports,e),i.loaded=!0,i.exports}var n={};return e.m=t,e.c=n,e.p="",e(0)}([function(t,e,n){"use strict";function r(t){return t&&t.__esModule?t:{"default":t}}var i=n(2),o=r(i);t.exports=o["default"]},function(t,e){function n(t){var e=typeof t;return null!=t&&("object"==e||"function"==e)}t.exports=n},function(t,e,n){"use strict";function r(t){return t&&t.__esModule?t:{"default":t}}Object.defineProperty(e,"__esModule",{value:!0});var i=n(9),o=r(i),u=n(3),f=r(u),s=n(4),c=function(){if("undefined"!=typeof window){var t=100,e=["scroll","resize","load"],n={history:[]},r={offset:{},threshold:0,test:s.inViewport},i=(0,o["default"])(function(){n.history.forEach(function(t){n[t].check()})},t);e.forEach(function(t){return addEventListener(t,i)}),window.MutationObserver&&addEventListener("DOMContentLoaded",function(){new MutationObserver(i).observe(document.body,{attributes:!0,childList:!0,subtree:!0})});var u=function(t){if("string"==typeof t){var e=[].slice.call(document.querySelectorAll(t));return n.history.indexOf(t)>-1?n[t].elements=e:(n[t]=(0,f["default"])(e,r),n.history.push(t)),n[t]}};return u.offset=function(t){if(void 0===t)return r.offset;var e=function(t){return"number"==typeof t};return["top","right","bottom","left"].forEach(e(t)?function(e){return r.offset[e]=t}:function(n){return e(t[n])?r.offset[n]=t[n]:null}),r.offset},u.threshold=function(t){return"number"==typeof t&&t>=0&&t<=1?r.threshold=t:r.threshold},u.test=function(t){return"function"==typeof t?r.test=t:r.test},u.is=function(t){return r.test(t,r)},u.offset(0),u}};e["default"]=c()},function(t,e){"use strict";function n(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),i=function(){function t(e,r){n(this,t),this.options=r,this.elements=e,this.current=[],this.handlers={enter:[],exit:[]},this.singles={enter:[],exit:[]}}return r(t,[{key:"check",value:function(){var t=this;return this.elements.forEach(function(e){var n=t.options.test(e,t.options),r=t.current.indexOf(e),i=r>-1,o=n&&!i,u=!n&&i;o&&(t.current.push(e),t.emit("enter",e)),u&&(t.current.splice(r,1),t.emit("exit",e))}),this}},{key:"on",value:function(t,e){return this.handlers[t].push(e),this}},{key:"once",value:function(t,e){return this.singles[t].unshift(e),this}},{key:"emit",value:function(t,e){for(;this.singles[t].length;)this.singles[t].pop()(e);for(var n=this.handlers[t].length;--n>-1;)this.handlers[t][n](e);return this}}]),t}();e["default"]=function(t,e){return new i(t,e)}},function(t,e){"use strict";function n(t,e){var n=t.getBoundingClientRect(),r=n.top,i=n.right,o=n.bottom,u=n.left,f=n.width,s=n.height,c={t:o,r:window.innerWidth-u,b:window.innerHeight-r,l:i},a={x:e.threshold*f,y:e.threshold*s};return c.t>e.offset.top+a.y&&c.r>e.offset.right+a.x&&c.b>e.offset.bottom+a.y&&c.l>e.offset.left+a.x}Object.defineProperty(e,"__esModule",{value:!0}),e.inViewport=n},function(t,e){(function(e){var n="object"==typeof e&&e&&e.Object===Object&&e;t.exports=n}).call(e,function(){return this}())},function(t,e,n){var r=n(5),i="object"==typeof self&&self&&self.Object===Object&&self,o=r||i||Function("return this")();t.exports=o},function(t,e,n){function r(t,e,n){function r(e){var n=x,r=m;return x=m=void 0,E=e,w=t.apply(r,n)}function a(t){return E=t,j=setTimeout(h,e),M?r(t):w}function l(t){var n=t-O,r=t-E,i=e-n;return _?c(i,g-r):i}function d(t){var n=t-O,r=t-E;return void 0===O||n>=e||n<0||_&&r>=g}function h(){var t=o();return d(t)?p(t):void(j=setTimeout(h,l(t)))}function p(t){return j=void 0,T&&x?r(t):(x=m=void 0,w)}function v(){void 0!==j&&clearTimeout(j),E=0,x=O=m=j=void 0}function y(){return void 0===j?w:p(o())}function b(){var t=o(),n=d(t);if(x=arguments,m=this,O=t,n){if(void 0===j)return a(O);if(_)return j=setTimeout(h,e),r(O)}return void 0===j&&(j=setTimeout(h,e)),w}var x,m,g,w,j,O,E=0,M=!1,_=!1,T=!0;if("function"!=typeof t)throw new TypeError(f);return e=u(e)||0,i(n)&&(M=!!n.leading,_="maxWait"in n,g=_?s(u(n.maxWait)||0,e):g,T="trailing"in n?!!n.trailing:T),b.cancel=v,b.flush=y,b}var i=n(1),o=n(8),u=n(10),f="Expected a function",s=Math.max,c=Math.min;t.exports=r},function(t,e,n){var r=n(6),i=function(){return r.Date.now()};t.exports=i},function(t,e,n){function r(t,e,n){var r=!0,f=!0;if("function"!=typeof t)throw new TypeError(u);return o(n)&&(r="leading"in n?!!n.leading:r,f="trailing"in n?!!n.trailing:f),i(t,e,{leading:r,maxWait:e,trailing:f})}var i=n(7),o=n(1),u="Expected a function";t.exports=r},function(t,e){function n(t){return t}t.exports=n}])});
 
-    /** */ },
-/** ****/ ]);
+/***/ })
+/******/ ]);
