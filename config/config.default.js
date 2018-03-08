@@ -2,6 +2,7 @@
 
 const {
   aliyunPhoto,
+  client
 } = require('../.config');
 const appName = require('../package').name;
 
@@ -17,4 +18,16 @@ exports.view = {
   },
 };
 
+exports.oss = {
+  client
+}
+
 exports.aliyunPhoto = aliyunPhoto;
+
+exports.security = {
+  csrf: false
+};
+
+exports.multipart = {
+  fileSize: '5mb',
+};

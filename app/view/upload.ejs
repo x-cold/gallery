@@ -1,0 +1,14 @@
+<% include header.ejs %>
+  <div class="layout">
+    <form method="post" action="/api/photos" enctype="multipart/form-data" class="upload">
+      <div class="choose">
+        <label for="file"></label>
+        <input name="file" type="file" id="file" />
+        <div class="preview-box"></div>
+      </div>
+      <div class="submit">
+        <button type="submit" class="btn-default">Upload</button>
+      </div>
+    </form>
+  </div>
+<% include footer.ejs %>
