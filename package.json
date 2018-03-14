@@ -4,6 +4,7 @@
   "description": "",
   "private": true,
   "dependencies": {
+    "ali-oss": "^4.13.0",
     "await-stream-ready": "^1.0.1",
     "egg": "^2.4.0",
     "egg-bin": "^4.3.7",
@@ -31,9 +32,7 @@
     "style-loader": "^0.13.2",
     "url-loader": "^0.5.7",
     "watch": "^1.0.1",
-    "webpack": "^1.13.2",
-    "webpack-cli": "^2.0.10",
-    "webstorm-disable-index": "^1.2.0"
+    "webpack": "^1.13.2"
   },
   "engines": {
     "node": ">=8.9.0"

@@ -10,9 +10,9 @@ exports.aliyunPhoto = {
   package: '../plugin/egg-aliyun-photo',
 };
 
-exports.oss = {
-  enable: true,
-  package: 'egg-oss'
-};
+// exports.oss = {
+//   enable: true,
+//   package: 'egg-oss'
+// };
 
 exports.static = true;

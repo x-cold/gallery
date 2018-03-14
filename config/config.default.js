@@ -1,8 +1,7 @@
 'use strict';
 
 const {
-  aliyunPhoto,
-  client
+  aliyunPhoto
 } = require('../.config');
 const appName = require('../package').name;
 
@@ -18,9 +17,9 @@ exports.view = {
   },
 };
 
-exports.oss = {
-  client
-}
+// exports.oss = {
+//   client
+// }
 
 exports.aliyunPhoto = aliyunPhoto;
 

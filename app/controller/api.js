@@ -9,6 +9,7 @@ const os = require('os')
 const sendToWormhole = require('stream-wormhole')
 const awaitWriteStream = require('await-stream-ready').write
 const md5File = require('md5-file')
+const OSS = require('ali-oss')
 class ApiController extends Controller {
   // test case: http://localhost:7001/api/photostore?name=mythum
   async getPhotoStore() {
@@ -29,7 +30,7 @@ class ApiController extends Controller {
     }
   }
 
-  async createPhoto() {
+  * createPhoto() {
     const {
       app,
       ctx
@@ -44,26 +45,26 @@ class ApiController extends Controller {
       Md5: '',
       StoreName: 'mythum'
     }
-    const stream = await ctx.getFileStream()
+    const stream = yield ctx.getFileStream()
     const filename = path.basename(stream.filename)
     const target = path.join(os.tmpdir(), filename)
     const writeStream = fs.createWriteStream(target)
     try {
-      await awaitWriteStream(stream.pipe(writeStream))
+      yield awaitWriteStream(stream.pipe(writeStream))
       params.Md5 = md5File.sync(target)
       params.Size = fs.statSync(target).size
       params.Ext = path.extname(target).substr(1)
     } catch (err) {
-      await sendToWormhole(stream)
+      yield sendToWormhole(stream)
       throw err
     }
     try {
-      const transcationRes = await aliyunPhoto.request('CreateTransaction', {
+      const transcationRes = yield aliyunPhoto.request('CreateTransaction', {
         StoreName: params.StoreName,
         Md5: params.Md5,
         Ext: params.Ext,
         Size: params.Size,
-        LibraryId: filename
+        LibraryId: 'scau'
       })
       const {
         FileId,
@@ -72,9 +73,21 @@ class ApiController extends Controller {
         Bucket,
         AccessKeyId,
         AccessKeySecret,
-        OssEndpoint
+        OssEndpoint,
+        StsToken
       } = transcationRes.Transaction.Upload
-      const result = await ctx.oss.put(filename, fs.createReadStream(target))
+      let store = new OSS({
+        accessKeyId: AccessKeyId,
+        accessKeySecret: AccessKeySecret,
+        endpoint: 'https://oss-cn-shanghai.aliyuncs.com',
+        stsToken: StsToken,
+        bucket: 'mythum'
+      })
+      const result = yield store.put(filename, fs.createReadStream(target), {
+        headers: {
+          'x-oss-security-token': StsToken
+        }
+      })
       // const uploadRes = await aliyunPhoto.request('CreatePhoto', {
       //   FileId,
       //   PhotoTitle: filename,
@@ -84,7 +97,7 @@ class ApiController extends Controller {
       //   LibraryId: filename
       // })
       ctx.body = {
-        result
+        transcationRes
       }
     } catch (error) {
       throw error
