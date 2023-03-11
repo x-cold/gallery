@@ -14,7 +14,8 @@
     "lerna": "^4.0.0",
     "lowdb": "^1.0.0",
     "md5-file": "^3.2.3",
-    "uuid": "^3.1.0"
+    "uuid": "^3.1.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "autod": "^3.0.1",
@@ -50,7 +51,9 @@
     "autod": "autod",
     "install": "lerna bootstrap",
     "clean": "lerna clean",
-    "build": "webpack"
+    "build": "webpack",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "ci": {
     "version": "6, 8"
@@ -60,5 +63,6 @@
     "url": "git@github.com:x-cold/gallery.git"
   },
   "author": "x-cold",
-  "license": "MIT"
+  "license": "MIT",
+  "snyk": true
 }
