@@ -4,11 +4,11 @@
   "description": "",
   "private": true,
   "dependencies": {
-    "ali-oss": "^4.13.0",
+    "ali-oss": "^6.17.0",
     "await-stream-ready": "^1.0.1",
     "egg": "^2.4.0",
     "egg-bin": "^4.3.7",
-    "egg-oss": "^1.1.0",
+    "egg-oss": "^2.0.0",
     "egg-scripts": "^2.5.1",
     "egg-view-ejs": "^3.0.0",
     "lerna": "^4.0.0",
