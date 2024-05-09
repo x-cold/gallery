@@ -6,7 +6,7 @@
   "dependencies": {
     "ali-oss": "^4.13.0",
     "await-stream-ready": "^1.0.1",
-    "egg": "^2.4.0",
+    "egg": "^3.23.0",
     "egg-oss": "^3.0.0",
     "egg-scripts": "^2.5.1",
     "egg-view-ejs": "^3.0.0",
